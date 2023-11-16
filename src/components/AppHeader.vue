@@ -48,7 +48,7 @@
         </nav>
         <div>
             <nav class="navbar navi">
-                <div class="nav-item" style="margin-right: 16px; color: white;margin-left: auto;">
+                <div class="nav-item" style="margin-right: 16px; color: white;margin-left: auto;" v-if="!isLoggedIn">
                     <router-link :to="{ name: 'trangchu' }" class="nav-link" style="color: #ffffff;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -60,7 +60,19 @@
                         </svg>
                         Trang Chủ
                     </router-link>
-
+                </div>
+                <div class="nav-item" style="margin-right: 16px; color: white;margin-left: auto;" v-else>
+                    <router-link :to="{ name: 'auth' }" class="nav-link" style="color: #ffffff;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="24"
+                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                            <path d="M10 12h4v4h-4z"></path>
+                        </svg>
+                        Trang Chủ
+                    </router-link>
                 </div>
                 <div class="nav-item" style="margin-right: 16px; color: white; ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-question"
@@ -73,7 +85,6 @@
                         <path d="M19 22v.01"></path>
                         <path d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483"></path>
                     </svg>
-
                     Hỏi Đáp
                 </div>
                 <div :class="'nav-item'" style="color: white;margin-right: auto;"></div>
