@@ -1,5 +1,3 @@
-
-
 <script setup>
 import { ref } from "vue";
 
@@ -17,11 +15,7 @@ const dataUser = ref({
     Password: "",
 });
 const ConfirmPassword = ref("");
-
- 
 const handleOk = async () => {
-     
-
      console.log('ok');
 };
 
@@ -31,8 +25,6 @@ const handleCancel = () => {
 };
 </script>
 
-
-
 <template>
     <div>
       <a-modal :open="isShowModalRegister" :confirm-loading="confirmLoading" @cancel="handleCancel" title="Bạn cần đăng nhập để xem chi tiết sản phẩm">
@@ -40,14 +32,13 @@ const handleCancel = () => {
           <!-- Your modal content goes here -->
         </div>
         <template #footer>
-          <a-button class="btn btn-danger" type="default" @click="handleCancel">Đóng</a-button>
+          <a-button class="btn btn-danger close" type="default" @click="handleCancel">Đóng</a-button>
         </template>
       </a-modal>
     </div>
   </template>
-
-
-
 <style>
-
+.close{
+  padding-bottom: 30px;
+}
 </style>

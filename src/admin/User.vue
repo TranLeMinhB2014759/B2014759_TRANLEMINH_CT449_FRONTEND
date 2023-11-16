@@ -14,17 +14,12 @@
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                                 <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
                             </svg>Khách hàng</th>
-
                     </tr>
-
                 </thead>
                 <tr>
                     <td>Tên</td>
-
                     <td>Trạng thái</td>
-
                 </tr>
-
                 <tbody>
                     <tr>
                         <td>
@@ -37,11 +32,9 @@
                                 </div>
                             </div>
                         </td>
-
                         <td>
                             <span class="btn btn-success">Active</span>
                         </td>
-
                     </tr>
                     <tr>
                         <td>
@@ -54,11 +47,9 @@
                                 </div>
                             </div>
                         </td>
-
                         <td>
                             <span class="btn btn-warning">Đang đăng nhập</span>
                         </td>
-
                     </tr>
                     <tr>
                         <td>
@@ -71,7 +62,6 @@
                                 </div>
                             </div>
                         </td>
-
                         <td>
                             <span class="btn btn-danger">Thoát</span>
                         </td>
@@ -98,17 +88,12 @@
                                 <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
                                 <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
                             </svg>Nhân Viên</th>
-
                     </tr>
-
                 </thead>
                 <tr>
                     <td>Tên</td>
-
                     <td>Trạng thái</td>
-
                 </tr>
-
                 <tbody>
                     <tr>
                         <td>
@@ -121,11 +106,9 @@
                                 </div>
                             </div>
                         </td>
-
                         <td>
                             <span class="btn btn-success">Active</span>
                         </td>
-
                     </tr>
                     <tr>
                         <td>
@@ -165,8 +148,6 @@
             </table>
 
         </div>
-
-
     </div>
 </template>
 

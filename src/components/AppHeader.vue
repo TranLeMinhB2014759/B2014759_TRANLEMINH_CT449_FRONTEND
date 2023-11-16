@@ -168,14 +168,6 @@ const closeModalRegister = () => {
 
 
 <style scoped>
-/* CSS để bo tròn ảnh và thu nhỏ nó */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-
-
-}
-
 .logo-img {
     border-radius: 50%;
     /* Bo tròn ảnh */
@@ -183,18 +175,6 @@ const closeModalRegister = () => {
     /* Thu nhỏ ảnh thành 1/4 kích thước ban đầu */
 }
 
-
-.navbar-brand {
-    display: flex;
-    /* Sử dụng flexbox để căn chỉnh các phần tử con */
-    align-items: flex-end;
-    /* Căn dưới cùng */
-    justify-content: center;
-    /* Căn giữa theo chiều ngang */
-    text-decoration: none;
-    /* Loại bỏ gạch chân khi hover */
-
-}
 
 /* CSS để định dạng văn bản */
 .logo-text {
@@ -207,7 +187,6 @@ const closeModalRegister = () => {
     margin-top: 10px;
     /* Khoảng cách từ logo đến văn bản (điều chỉnh giá trị này theo nhu cầu) */
 }
-
 .navi {
     background-color: #1b7931;
     /* Màu nền xanh */
@@ -218,7 +197,6 @@ const closeModalRegister = () => {
     border-radius: 1px;
     /* Bo góc thẻ div */
 }
-
 .nav-item {
     cursor: pointer;
     margin: 0 10px;
@@ -276,5 +254,5 @@ const closeModalRegister = () => {
 }
 
 .dropdown-menu {
-    margin-left: -70px;
+    margin-left: -100px;
 }</style>

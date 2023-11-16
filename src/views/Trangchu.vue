@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container mt-3">
     <div class="row">
       <div class="col-sm-6">
         <div class="img-banner">
@@ -9,7 +9,6 @@
           </div>
         </div>
       </div>
-      <!-- Quyền lợi khi hiến máu -->
 
       <div class="col-sm-6">
         <div id="demo" class="carousel slide" data-ride="carousel">
@@ -34,27 +33,16 @@
                 </li>
               </ul>
             </div>
-
-
           </div>
-
         </div>
       </div>
-
-
-
     </div>
-
     <div class="tc">
       <div class="container">
-
+        <div class="product-title">Các sản phẩm</div>
         <div class="row">
-
           <div class="col-sm-3" @click="OpenModalRegister" v-for="product in products" :key="product._id">
-            <img :src="product.imgURL" alt="Hình ảnh" class="imgsp" />
-
-
-
+            <div class="container-sp"><img :src="product.imgURL" alt="Hình ảnh" class="imgsp" /></div>
             <div class="ten">
               <p>{{ product.TenHH }}</p>
               <div class="ngoi-sao">
@@ -64,30 +52,15 @@
                 <i class="fa-solid fa-star text-warning"></i>
                 <i class="fa-solid fa-star text-warning"></i>
               </div>
-              <p>{{ product.Gia }} VNĐ</p>
+              <p>{{ product.Gia }} VNĐ / 1 kg</p>
             </div>
-
-
             <homeModal :isShowModalRegister="isShowModalRegister" :closeModalRegister="closeModalRegister" />
           </div>
-
-
-
-
         </div>
-
-        <!-- 3 -->
-
-
-
       </div>
-
-
     </div>
-
-
     <!-- Lời khuyên -->
-    <div class="container">
+
       <div class="lk">
         <div class="row">
           <div class="col-sm-6">
@@ -98,9 +71,7 @@
                 <h4 style="color: #00FF00;">
                   <i class="fa-regular fa-circle-check"></i>
                   Nên:
-
                 </h4>
-
                 <ul>
                   <li>Lựa chọn ngũ cốc nguyên hạt: Ưu tiên lựa chọn ngũ cốc nguyên hạt, chứa nhiều chất xơ, vitamin và
                     khoáng chất. Chúng có lợi cho sức khỏe tim mạch và giúp duy trì cân nặng..</li>
@@ -109,23 +80,17 @@
                   <li>Đa dạng hóa nguồn ngũ cốc: Hãy thử nhiều loại ngũ cốc khác nhau như lúa mạch, yến mạch, gạo lứt, hạt
                     lanh, hạt óc chó, và nguồn ngũ cốc tự nhiên khác để đảm bảo bạn nhận đủ dinh dưỡng và không bị nhàm
                     chán..</li>
-
                 </ul>
               </div>
-
             </div>
-
           </div>
           <div class="col-sm-6">
             <div class="ban">
               <div>
                 <h4 style="color: #FF0000;">
                   <i class="fa-solid fa-ban"></i>
-
                   Không nên:
-
                 </h4>
-
                 <ul>
                   <li>Tránh ngũ cốc có nhiều đường: Hạn chế sử dụng ngũ cốc chứa nhiều đường và bắt đầu quen dần với
                     việc ăn ngũ cốc không đường hoặc ít đường.</li>
@@ -140,9 +105,7 @@
                 <h4 style="color:#FF6600;">
                   <i class="fa-solid fa-circle-exclamation"></i>
                   Lưu ý:
-
                 </h4>
-
                 <ul>
                   <li> Cân nhắc về kích cỡ phần: Hãy tuân thủ phân loại kích cỡ phần theo chỉ dẫn trên bao bì để đảm bảo
                     bạn không ăn quá nhiều.</li>
@@ -154,27 +117,12 @@
                     không chứa chất xử lý hóa học thường là lựa chọn tốt hơn cho sức khỏe.</li>
                 </ul>
               </div>
-
             </div>
-
-
           </div>
         </div>
-
       </div>
-
-
-
     </div>
-
-
-
-
-
-
-
-  </div>
-</template>
+  </template>
 
 <script>
 import ProductService from '../services/hanghoa.service';
@@ -201,7 +149,6 @@ export default {
   created() {
     this.retrieveProducts();
   },
-
 
 }
 
@@ -278,18 +225,36 @@ const closeModalRegister = () => {
 
 }
 
-
 .carousel-item ul>h3 {
   padding-bottom: 30px;
 
 }
 
+.tc {
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #ffffff;
+  min-height: 200px;
+}
+
+.container-sp{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
 
 .imgsp {
-  width: 210px;
+  width: 180px;
+  height: 180px;
   border-radius: 5px;
 }
 
+.product-title{
+  font-weight: 600;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
 
 .lk {
   background-color: #1c9145;
@@ -303,7 +268,6 @@ const closeModalRegister = () => {
 .col-sm-6 .ban,
 .col-sm-6 .exc {
   padding: 20px;
-
 }
 
 .check,

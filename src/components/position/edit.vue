@@ -1,7 +1,5 @@
 <template>
   <div>
-
-
     <Form @submit="submitProduct" :validation-schema="productFormSchema">
       <!-- Tên sản phẩm -->
       <div class="form-group">

@@ -1,12 +1,9 @@
 <template>
-    <div class="lg">
-        <p>{{ message }}</p>
-        <FormLogin @submit:login="loginUser" />
-    </div>
+    <FormLogin @submit:login="loginUser" />
 </template>
   
 <script>
-import FormLogin from "@/components/Formlogin.vue";
+import FormLogin from "@/components/LoginForm.vue";
 import UserService from "@/services/user.service.js";
 
 export default {
@@ -34,22 +31,23 @@ export default {
                         this.message = "Đăng nhập thành công";
                         this.$router.push({ name: 'auth' }); // Assuming 'auth' is the name of your user route.
                     }
-                } else {
-                    this.message = "Đăng nhập thất bại, mật khẩu hoặc email chưa chính xác";
                 }
             } catch (error) {
                 console.error("Login error:", error);
-                this.message = "Đã xảy ra lỗi trong quá trình đăng nhập";
+                this.message = "Đăng nhập thất bại, mật khẩu hoặc email chưa chính xác";
+                alert(this.message);
             }
         },
     },
 };
 </script>
-  
+
 <style scoped>
-.lg>p {
-    margin-bottom: 28px;
+.alert-message>p {
+    display: flex;
     color: rgb(249, 4, 4);
+    justify-content: center;
+    padding: 5px;
 }
 </style>
   

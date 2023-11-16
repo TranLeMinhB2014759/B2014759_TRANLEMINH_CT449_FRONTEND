@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-6" v-if="product" :key="product._id">
+      <div class="col-sm-6 products-img" v-if="product" :key="product._id">
         <img :src="product.imgURL" alt="">
       </div>
       <div class="col-sm-6" v-if="product" :key="product._id">
@@ -11,8 +11,8 @@
             <div class="product-price">
 
               <span class="price-new">{{ product.Gia }}</span>
-              <span class="price">-</span>
-              <span class="price-old">{{ product.Gia }}</span>
+              <span class="price"> - </span>
+              <span class="price-old">{{ product.Gia }} VNĐ / 1 kg</span>
             </div>
             <div class="product-rating">
               <!-- 45 ngôi sao màu vàng -->
@@ -20,17 +20,14 @@
             </div>
           </div>
           <div class="product-info">
-
-            <p>Tên Sản Phẩm:{{ product.TenHH }}</p>
+            <p>Tên Sản Phẩm: {{ product.TenHH }}</p>
             <p>Xuất Xứ: Hưng Yên</p>
             <p>Hạn Sử Dụng: 12 tháng</p>
-            <p>:{{ product.MoTaHH }}</p>
-
+            <p>Mô tả sản phẩm: {{ product.MoTaHH }}</p>
           </div>
 
         </div>
         <div class="product-details">
-          <!-- ...Các phần khác giữ nguyên... -->
           <div class="product-quantity">
             <button id="decrease-quantity" @click="decreaseQuantity">-</button>
             <span id="quantity">{{ SoLuongHangHoa }}</span>
@@ -82,15 +79,6 @@ export default {
     }
   },
 }
-
-
-
-
-
-
-
-
-
 </script>
   
 <style scoped>
@@ -103,10 +91,16 @@ img {
   /* Đổi màu thành màu vàng */
 }
 
+.products-img{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .product-details {
   width: 500px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px 0;
   background-color: #fff;
   border-radius: 5px;
 }

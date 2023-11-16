@@ -1,13 +1,11 @@
 <template>
   <div>
     <FormRegister @submit:user="createUser" />
-    <p>{{ message }}</p>
-
   </div>
 </template>
   
 <script>
-import FormRegister from "@/components/FormRegister.vue";
+import FormRegister from "@/components/SignUpForm.vue";
 import UserService from "@/services/user.service.js";
 
 export default {
@@ -20,11 +18,8 @@ export default {
 
   },
 
-
   data() {
     return {
-
-
       message: "",
     };
 
@@ -32,16 +27,12 @@ export default {
   methods: {
     async createUser(data) {
       // Hiển thị cửa sổ xác nhận
-
-
-
-
       const confirmed = window.confirm("Bạn có muốn tạo tài khoản  mới?");
-
       if (confirmed) {
         try {
           await UserService.create(data);
           this.message = "Thêm tài khoản mới thành công";
+          alert(this.message);
           this.$router.push({ name: 'login' });
 
         } catch (error) {
@@ -51,20 +42,5 @@ export default {
     },
 
   },
-
-
-
 };
-
-
-
-
-
-
 </script>
-  
-  
-  
-  
-  
-<style scoped></style>

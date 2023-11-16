@@ -1,11 +1,8 @@
 <template>
     <div>
-
         <img style="
-         
           float: left;
           left: 360px;
-        
           width: 250px;
           top: 277px;
         " src="https://theme.hstatic.net/1000363117/1000911694/14/lazyload.gif?v=271" width="250px" />

@@ -15,22 +15,7 @@ export default {
 <template>
     <div class="app">
         <AppHeader />
-
-        <div class="container mt-3">
-            <router-view />
-        </div>
+        <router-view />
         <AppFooter />
     </div>
 </template>
-<style scoped>
-.page {
-    max-width: 400px;
-    margin: auto;
-
-}
-
-.container {
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-</style>

@@ -59,14 +59,7 @@
                         </svg>
 
                         Tiếp tục mua hàng</button>
-
                 </router-link>
-
-
-
-
-
-
             </div>
             <div class="col-sm-3">
                 <h5 class="text-dark">THÔNG TIN KHÁCH HÀNG</h5>
@@ -117,8 +110,6 @@
                         <button>
                             tiếp
                         </button>
-
-
                     </router-link>
                     <button name="btn-pay" @click="placeOrder"
                         style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">Thanh
