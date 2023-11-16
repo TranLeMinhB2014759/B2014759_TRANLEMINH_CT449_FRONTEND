@@ -2,7 +2,6 @@
     <div>
         <h1 class="d-flex justify-content-center">Chỉnh sửa sản phẩm</h1>
         <edit :product="product" @submit:product="editProduct" />
-        <p>{{ message }}</p>
     </div>
 </template>
   
@@ -36,6 +35,7 @@ export default {
                 try {
                     await ProductService.update(this.product._id, data);
                     this.message = "Cập nhật sản phẩm thành công";
+                    alert(this.message);
                 } catch (error) {
                     console.error(error);
                 }

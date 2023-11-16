@@ -42,12 +42,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.alert-message>p {
-    display: flex;
-    color: rgb(249, 4, 4);
-    justify-content: center;
-    padding: 5px;
-}
-</style>
   

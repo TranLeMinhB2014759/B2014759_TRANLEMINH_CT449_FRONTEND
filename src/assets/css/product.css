@@ -1,0 +1,83 @@
+img {
+ width: 324px;
+}
+
+.product-rating span {
+  color: gold;
+  /* Đổi màu thành màu vàng */
+}
+
+.products-img{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.product-details {
+  width: 500px;
+  margin: 0 auto;
+  padding: 15px 0;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+li {
+  list-style: none;
+}
+
+.product-info {
+  list-style: none;
+  padding-left: 0;
+}
+
+.product-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-add-to-cart {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-order-now {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-quantity {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-quantity button {
+  background-color: #0077B6;
+  /* Màu nền của nút */
+  color: #fff;
+  /* Màu chữ trắng */
+  border: none;
+  border-radius: 50%;
+  /* Làm cho nút có hình dạng tròn */
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#quantity {
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+/* Hiệu ứng khi hover vào nút */
+.product-quantity button:hover {
+  background-color: #005a9e;
+  /* Màu nền khi hover */
+}
+
+#add-to-cart {
+  border-radius: 5px;
+}
