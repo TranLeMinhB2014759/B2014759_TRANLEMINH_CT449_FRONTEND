@@ -155,10 +155,4 @@ const closeModalRegister = () => {
 };
 </script>
   
-<<<<<<< HEAD:src/views/Trangchu.vue
 <style scoped>@import "@/assets/css/homepage.css";</style>
-=======
-<style scoped>
-@import "@/assets/css/homepage.css";
-</style>
->>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1:src/views/Homepage.vue
