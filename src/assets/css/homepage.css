@@ -40,17 +40,8 @@
 /* Quyền lợi */
 
 .carousel-item h3 {
-<<<<<<< HEAD
     color: #386fd6;
     text-align: center;
-=======
-
-
-    color: #386fd6;
-    text-align: center;
-    /* Chữ màu trắng */
-
->>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1
 }
 
 .carousel-item ul {
@@ -63,14 +54,11 @@
 
 }
 
-<<<<<<< HEAD
 
 .carousel-caption {
     color: black;
 }
 
-=======
->>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1
 .tc {
     border-radius: 8px;
     margin-top: 10px;
@@ -97,15 +85,6 @@
     margin-bottom: 20px;
 }
 
-<<<<<<< HEAD
-=======
-.lk {
-    background-color: #1c9145;
-    border-radius: 10px;
-    width: 100%;
-
-}
->>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1
 
 .col-sm-6>h2,
 .col-sm-6 .check,
@@ -120,7 +99,6 @@
     margin: 10px;
     background-color: #ffffff;
     border-radius: 10px;
-<<<<<<< HEAD
 }
 
 a {
@@ -152,6 +130,4 @@ a:hover {
     /* Change the background color on hover */
     transition: background-color 0.3s ease;
     /* Add a smooth transition effect */
-=======
->>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1
 }
