@@ -23,7 +23,6 @@
                             <router-link :to="{ name: 'user.register' }" class="register">
                                 Đăng Ký
                             </router-link>
-
                         </li>
                         <div class="dropdown" v-else>
                             <a class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -48,48 +47,27 @@
         </nav>
         <div>
             <nav class="navbar navi">
-                <div class="nav-item" style="margin-right: 16px; color: white;margin-left: auto;" v-if="!isLoggedIn">
+                <div class="nav-item" style="margin: auto; margin-right: 16px; color: white;">
                     <router-link :to="{ name: 'trangchu' }" class="nav-link" style="color: #ffffff;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
-                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                            <path d="M10 12h4v4h-4z"></path>
-                        </svg>
+                        <i class="fa-solid fa-house"></i>
                         Trang Chủ
                     </router-link>
                 </div>
-                <div class="nav-item" style="margin-right: 16px; color: white;margin-left: auto;" v-else>
-                    <router-link :to="{ name: 'auth' }" class="nav-link" style="color: #ffffff;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-2" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
-                            <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
-                            <path d="M10 12h4v4h-4z"></path>
-                        </svg>
-                        Trang Chủ
+                <div class="nav-item" style="margin-right: 16px; color: white">
+                    <router-link :to="{ name: 'products' }" class="nav-link" style="color: #ffffff;">
+                        <i class="fa-solid fa-lemon"></i>
+                        Sản phẩm
                     </router-link>
                 </div>
+
                 <div class="nav-item" style="margin-right: 16px; color: white; "  v-if="isLoggedIn">
                     <router-link :to="{ name: 'psuccess' }" class="nav-link" style="color: #ffffff;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-question"
-                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                            <path d="M13.5 17h-7.5v-14h-2"></path>
-                            <path d="M6 5l14 1l-.714 5m-4.786 2h-8.5"></path>
-                            <path d="M19 22v.01"></path>
-                            <path d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483"></path>
-                        </svg>
+                        <i class="fa-solid fa-cart-shopping"></i>
                         Đơn hàng của bạn
                     </router-link>
                 </div>
                 <div :class="'nav-item'" style="color: white;margin-right: auto;"></div>
+
             </nav>
 
         </div>

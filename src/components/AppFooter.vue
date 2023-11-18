@@ -5,7 +5,7 @@
 
 
     <!-- Section: Links  -->
-    <section class="">
+    <section class="footer">
       <div class="container text-center text-md-start mt-5">
         <!-- Grid row -->
         <div class="row mt-3">
@@ -76,7 +76,7 @@
     <!-- Section: Links  -->
 
     <!-- Copyright -->
-    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    <div class="text-center p-4" style="background-color:  #DCDCDC">
       <p class="copyright-text">Copyright &copy; 2023 All Rights Reserved by
         <a href="#">Master Minh</a>.
       </p>
@@ -87,11 +87,10 @@
 </template>
     
 <style scoped>
-section {
+.footer {
   padding: 10px;
-
-
   color: #333;
+  background-color: rgba(0, 0, 0, 0.05);;
 }
 
 .dvtv {

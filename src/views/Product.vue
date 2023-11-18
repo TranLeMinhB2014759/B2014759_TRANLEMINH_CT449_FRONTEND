@@ -27,7 +27,12 @@
           </div>
 
         </div>
-        <div class="product-details" v-if="product" :key="product._id">
+        <div class="product-details" @click="OpenModalRegister"  v-if="!isLoggedIn">
+            <button id="add-to-cart" class="btn btn-success text-white" >Thêm vào giỏ hàng</button>
+          <homeModal :isShowModalRegister="isShowModalRegister" :closeModalRegister="closeModalRegister" />
+        </div>
+
+        <div class="product-details" v-else v-if="product" :key="product._id" > 
           <!-- <div class="product-quantity">
             <button id="decrease-quantity" @click="decreaseQuantity">-</button>
             <span id="quantity">{{ SoLuongHangHoa }}</span>
@@ -35,10 +40,7 @@
           </div> -->
           <router-link :to="{ name: 'events' }">
             <button id="add-to-cart" class="btn btn-success text-white">Thêm vào giỏ hàng</button>
-
-
           </router-link>
-
         </div>
       </div>
     </div>
@@ -54,12 +56,54 @@ export default {
     return {
       // SoLuongHangHoa: 1,
       product: [],
+      isLoggedIn: false,
     };
   },
+  mounted() {
+        // Khai báo biến intervalId bằng let hoặc const
+        let intervalId;
+
+        // Gọi đoạn code mỗi 5 giây và lưu giá trị được trả về bởi setInterval
+        intervalId = setInterval(() => {
+            const userJs = window.localStorage.getItem('user');
+            const user = JSON.parse(userJs);
+
+
+            if (user) {
+                // console.log('user', user);
+                this.isLoggedIn = true;
+            }
+        }, 100); // Gọi mỗi 0,1 giây 
+
+        // Để dừng việc gọi đoạn code sau một thời gian hoặc khi điều kiện nào đó được thỏa mãn, bạn có thể sử dụng clearInterval(intervalId)
+
+        // Ví dụ: Dừng việc gọi đoạn code sau 300 giây
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, 3000000);
+    },
   props: {
     id: { type: String, required: true },
   },
   methods: {
+    logout() {
+            window.localStorage.removeItem('user');
+            this.isLoggedIn = false;
+
+
+            this.$router.push({ name: "trangchu" });
+        },
+        loginUser() {
+
+            this.$router.push({ name: "login" });
+        },
+        signupUser() {
+
+            this.$router.push({ name: "user.register" });
+        },
+        openModal() {
+            this.AModalVisible = false;
+        },
     // decreaseQuantity() {
     //   if (this.SoLuongHangHoa > 1) {
     //     this.SoLuongHangHoa--;
@@ -79,7 +123,20 @@ export default {
   },
 }
 </script>
-  
+<script setup>
+import { ref } from "vue";
+import homeModal from "./homeModal.vue";
+
+
+const isShowModalRegister = ref(false)
+
+const OpenModalRegister = () => {
+  isShowModalRegister.value = true;
+};
+const closeModalRegister = () => {
+  isShowModalRegister.value = false;
+};
+</script>
 <style scoped>
 @import "@/assets/css/product.css";
 </style>

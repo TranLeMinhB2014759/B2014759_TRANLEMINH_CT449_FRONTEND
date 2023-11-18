@@ -126,6 +126,7 @@ export default {
                 email: "",
                 password: "",
                 respassword: "",
+				imgURL: "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg",
                 // Initialize as a boolean value
             },
             userFormSchema,

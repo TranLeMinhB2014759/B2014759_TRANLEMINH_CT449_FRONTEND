@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-3">
+  <div class="container">
     <div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselControls" data-bs-slide-to="0" class="active" aria-current="true"
@@ -14,27 +14,18 @@
             alt="First slide" class="d-block w-100" height="350px">
           <div class="carousel-caption d-none d-md-block animationSlide">
 
-            <strong>Diverse book store</strong>
-            <p>The more that you read, the more things you will know. The more that you learn, the more
-              places you’ll go.</p>
+            <strong>CÔNG TY GARDEN SUPPLY</strong>
+            <p>Sự lựa chọn hoàn hảo của mọi nhà</p>
 
           </div>
         </div>
         <div class="carousel-item">
           <img src="https://berryfruit.vn/upload/images/banner/banner-web-1.jpg" alt="Second slide" class="d-block w-100"
             height="350px">
-          <div class="carousel-caption d-none d-md-block animationSlide">
-            <strong>Study space</strong>
-            <p>The space is quiet, airy, and has a computer system to support searching.</p>
-          </div>
         </div>
         <div class="carousel-item">
           <img src="https://fruitstt.vn/wp-content/uploads/2021/06/Website-banner-ngang-03-1400x504.png" alt="Third slide"
             class="d-block w-100" height="350px">
-          <div class="carousel-caption d-none d-md-block animationSlide">
-            <strong>Professional document</strong>
-            <p>Helps you easily research projects.</p>
-          </div>
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
@@ -85,74 +76,7 @@
         </div>
       </div>
     </div>
-    <div class="tc">
-      <div class="container">
-        <div class="product-title">Các sản phẩm</div>
-        <div class="row">
-          <div class="col-sm-3" @click="OpenModalRegister" v-for="product in products" :key="product._id">
-            <div class="container-sp"><img :src="product.imgURL" alt="Hình ảnh" class="imgsp" /></div>
-            <div class="ten">
-              <p>{{ product.TenHH }}</p>
-              <div class="ngoi-sao">
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-                <i class="fa-solid fa-star text-warning"></i>
-              </div>
-              <p><b>{{ product.Gia }} VNĐ / 1 kg</b></p>
-            </div>
-            <homeModal :isShowModalRegister="isShowModalRegister" :closeModalRegister="closeModalRegister" />
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
-<script>
-import ProductService from '../services/hanghoa.service';
-
-export default {
-  data() {
-    return {
-      products: [],
-
-    };
-  },
-  props: {
-    id: { type: String, required: true },
-  },
-  methods: {
-    async retrieveProducts() {
-      try {
-        this.products = await ProductService.getAll();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-  created() {
-    this.retrieveProducts();
-  },
-
-}
-
-
-</script>
-<script setup>
-import { ref } from "vue";
-import homeModal from "./homeModal.vue";
-
-
-const isShowModalRegister = ref(false)
-
-const OpenModalRegister = () => {
-  isShowModalRegister.value = true;
-};
-const closeModalRegister = () => {
-  isShowModalRegister.value = false;
-};
-</script>
-  
 <style scoped>@import "@/assets/css/homepage.css";</style>

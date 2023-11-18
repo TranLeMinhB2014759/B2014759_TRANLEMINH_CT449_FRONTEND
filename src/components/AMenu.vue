@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table align-middle mb-0 table-secondary">
+    <div class="">
+        <table class="table align-middle  table-secondary">
             <thead class="bg-light">
                 <tr>
                     <th style="text-align:  center;">

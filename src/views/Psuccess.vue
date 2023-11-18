@@ -88,7 +88,7 @@
                 </table>
 
             </div>
-            <router-link :to="{ name: 'auth' }">
+            <router-link :to="{ name: 'products' }">
                 <button style="
             float: right;
             width: 100%;
