@@ -81,6 +81,10 @@ export default {
 </script>
   
 <style scoped>
+<<<<<<< HEAD
 @import "@/assets/css/product.css";
+=======
+@import "@/assets/css/product.css"; 
+>>>>>>> 74fca9a2833f8b1c268da6ec0901e571b9ca23a1
 </style>
   
