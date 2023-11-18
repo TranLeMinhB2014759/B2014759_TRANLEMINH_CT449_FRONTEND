@@ -42,7 +42,7 @@ const routes = [
       },
       {
         path: "/events",
-        name: "events",
+        name: "events", //name: "events/:id",
         component: () => import("@/views/Event.vue"),
       },
       {

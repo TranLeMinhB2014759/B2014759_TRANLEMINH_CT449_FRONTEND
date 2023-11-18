@@ -2,7 +2,11 @@
     <div class="container info-user" style="text-align:center">
         <div class="row">
             <div class="col-sm-9">
-
+                <div>
+                    <div style="background-color: #CCC;"><b>Tổng đơn hàng:</b></div>
+                    <div>{{ totalAmount }}.000 vnđ</div>
+                    <div>Ngày đặt hàng: {{ getCurrentDate() }}</div>
+                </div>
                 <table>
                     <thead>
                         <tr>
@@ -16,15 +20,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product in cart" :key="product.id">
+                        <tr v-if="product" :key="product._id">
                             <td style="display: none;">{{ product.id }}</td>
-                            <td><img :src="product.hinh" alt="Product Image" class="img"></td>
-                            <td>{{ product.sanpham }}</td>
-                            <td>{{ product.dongia }}.000 vnđ</td>
+                            <td><img :src="product.imgURL" alt="Product Image" class="img"></td>
+                            <td>{{ product.TenHH }}</td>
+                            <td>{{ 1 * product.Gia }}.000 VNĐ</td>
                             <td>
                                 <input type="number" min="1" v-model="product.soluong" class="short-input">
                             </td>
                             <td>{{ product.tongtien }}.000 vnđ</td>
+                            <td>
+                                <div class="product-quantity">
+                                    <button id="decrease-quantity" @click="decreaseQuantity">-</button>
+                                    <span id="quantity">{{ SoLuongHangHoa }}</span>
+                                    <button id="increase-quantity" @click="increaseQuantity">+</button>
+                                </div>
+                            </td>
+                            <td>.000 vnđ</td>
                             <td colspan="2">
                                 <form @submit.prevent="updateQuantity(product.id)">
                                     <button @click="removeFromCart(product.id)">
@@ -112,8 +124,8 @@
                         </button>
                     </router-link>
                     <button name="btn-pay" @click="placeOrder"
-                        style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">Thanh
-                        toán</button>
+                        style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">Đặt
+                        Hàng</button>
                 </form>
             </div>
         </div>
@@ -121,38 +133,22 @@
 </template>
   
 <script>
+import ProductService from '../services/hanghoa.service';
 export default {
     data() {
         return {
-            cart: [
-                {
-                    id: 1,
-                    hinh: 'https://img.freepik.com/free-photo/high-angle-beans-arrangement-concept_23-2148648539.jpg?size=626&ext=jpg',
-                    sanpham: 'Combo ngũ cốc 1',
-                    dongia: 100,
-                    soluong: 2,
-                    tongtien: 200,
-                },
-                {
-                    id: 2,
-                    hinh: 'https://img.freepik.com/free-photo/high-angle-beans-arrangement-concept_23-2148648539.jpg?size=626&ext=jpg',
-                    sanpham: 'Combo ngũ cốc 2',
-                    dongia: 150,
-                    soluong: 3,
-                    tongtien: 450,
-                },
-                // Add more products as needed
-            ],
+            product: [],
+
+            SoLuongHangHoa: 1,
+
             customer: {
-                gender: 'Anh',
-                hoten: '',
-                sdt: '',
+                hoten: 'John Doe',
+                sdt: '123456789',
                 postage: 'Yes',
-                province: '',
-                district: '',
-                ward: '',
+                province: 'Hanoi',
+                district: 'Cau Giay',
+                ward: 'Dich Vong',
                 pt: 'Chuyển khoản qua ngân hàng',
-                result: '', // You can set the result value as needed
             },
         };
     },
@@ -161,7 +157,25 @@ export default {
             return this.cart.reduce((total, product) => total + product.tongtien, 0);
         },
     },
+    props: {
+        id: { type: String, required: true },
+    },
     methods: {
+        decreaseQuantity() {
+            if (this.SoLuongHangHoa > 1) {
+                this.SoLuongHangHoa--;
+            }
+        },
+        increaseQuantity() {
+            this.SoLuongHangHoa++;
+        },
+        getCurrentDate() {
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+            return formattedDate;
+        },
         updateQuantity(productId) {
             // Implement the update quantity logic here
         },
@@ -174,6 +188,14 @@ export default {
         placeOrder() {
             // Implement the place order logic here
         },
+    },
+    async created() {
+        const productId = this.$route.params.id;
+        try {
+            this.product = await ProductService.get(productId);
+        } catch (error) {
+            console.error(error);
+        }
     },
 };
 </script>
@@ -195,5 +217,28 @@ img {
 
 .btn-success {
     margin-right: 10px;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.product-quantity button {
+    background-color: #0077B6;
+    /* Màu nền của nút */
+    color: #fff;
+    /* Màu chữ trắng */
+    border: none;
+    border-radius: 50%;
+    /* Làm cho nút có hình dạng tròn */
+    width: 25px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+#quantity {
+    margin: 0 10px;
+    font-size: 18px;
 }
 </style>

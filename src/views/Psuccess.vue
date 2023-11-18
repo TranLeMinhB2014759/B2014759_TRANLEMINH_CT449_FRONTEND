@@ -1,34 +1,53 @@
 <template>
-    <div>
-        <img style="
-          float: left;
-          left: 360px;
-          width: 250px;
-          top: 277px;
-        " src="https://theme.hstatic.net/1000363117/1000911694/14/lazyload.gif?v=271" width="250px" />
-        <div>
-            <h3>Đặt hàng thành công</h3>
+    <div class="contaiter">
+        <div class="row">
+            <div class="col-sm-6">
 
-            <div v-for="customer in customers" :key="customer.id">
-                <label><b>{{ customer.gt }}:</b></label>
-                <label>{{ customer.hoten }}</label><br>
-                <label><b>Số điện thoại:</b> {{ customer.sdt }}</label><br>
-                <label><b>Địa chỉ:</b> {{ customer.diachi }}</label><br>
-                <label><b>Phương thức thanh toán:</b></label>
-                <label>{{ customer.pt }}</label><br>
+                <img style="
+         
+         float: left;
+         left: 360px;
+       
+         width: 250px;
+         top: 277px;
+       " src="https://theme.hstatic.net/1000363117/1000911694/14/lazyload.gif?v=271" width="250px" />
             </div>
-            <div>
-                <label><b>Ngày đặt hàng:</b> {{ orderInfo.orderDate }}</label><br>
-                <label><b>Ngày giao hàng:</b> {{ orderInfo.deliveryDate }}</label><br>
-                <label><b>Trạng thái giao hàng:</b> {{ orderInfo.deliveryStatus }}</label><br>
-                <label><b>Người giao hàng:</b> {{ orderInfo.deliveryPerson }}</label><br>
+            <div class="col-sm-6">
+                <h3>Đặt hàng thành công</h3>
+
+                <div v-for="customer in customers" :key="customer.id">
+                    <label><b>{{ customer.gt }}:</b></label>
+                    <label>{{ customer.hoten }}</label><br>
+                    <label><b>Số điện thoại:</b> {{ customer.sdt }}</label><br>
+                    <label><b>Địa chỉ:</b> {{ customer.diachi }}</label><br>
+                    <label><b>Phương thức thanh toán:</b></label>
+                    <label>{{ customer.pt }}</label><br>
+                </div>
+                <div>
+                    <label><b>Ngày đặt hàng:</b> {{ orderInfo.orderDate }}</label><br>
+                    <label><b>Ngày giao hàng:</b> {{ orderInfo.deliveryDate }}</label><br>
+
+
+                    <label><b>Người giao hàng:</b> {{ orderInfo.deliveryPerson }}</label><br>
+                    <select v-model="orderInfo.deliveryStatus" style="margin-right: 10px;">
+                        <option value="Đang giao hàng">Chưa nhận</option>
+                        <option value="Đã giao hàng">Đã nhận hàng</option>
+                    </select>
+
+                    <!-- Button to confirm the status change -->
+                    <button class="btn btn-success" @click="confirmDeliveryStatus" style="margin-bottom: 10px;">
+                        Xác nhận
+                    </button>
+                </div>
+
+
             </div>
-
-
         </div>
 
+
+
         <div class="container">
-            <div class="col">
+            <div class="col-sm-12">
                 <table class="table">
                     <thead>
                         <tr>
@@ -100,7 +119,7 @@ export default {
             cart: [
                 {
                     id: 1,
-                    hinh: 'https://img.freepik.com/free-photo/high-angle-beans-arrangement-concept_23-2148648539.jpg?size=626&ext=jpg',
+                    hinh: '	https://nongsansachstore.com/wp-content/uploads/2021/03/dau-do-nguyen-hat.jpg',
                     sanpham: 'Combo ngũ cốc 1',
                     dongia: 100,
                     giamGia: 10, // Giảm giá 10%
@@ -109,7 +128,7 @@ export default {
                 },
                 {
                     id: 2,
-                    hinh: 'https://img.freepik.com/free-photo/high-angle-beans-arrangement-concept_23-2148648539.jpg?size=626&ext=jpg',
+                    hinh: 'https://nongsansachstore.com/wp-content/uploads/2021/03/cong-dung-cua-hat-dau-den.png',
                     sanpham: 'Combo ngũ cốc 2',
                     dongia: 150,
                     giamGia: 15, // Giảm giá 15%
@@ -145,12 +164,19 @@ export default {
             }, 0);
         },
     },
+    methods: {
+
+        confirmDeliveryStatus() {
+            // Add logic to handle the confirmation, if needed
+            console.log('Delivery status confirmed:', this.orderInfo.deliveryStatus);
+        },
+    },
 };
 </script>
   
 <style scoped>
 img {
-    width: 25%;
+    width: 75%;
     border-radius: 5px;
     padding: 10px;
 }

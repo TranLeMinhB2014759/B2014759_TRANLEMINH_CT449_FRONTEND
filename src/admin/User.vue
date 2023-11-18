@@ -18,54 +18,28 @@
                 </thead>
                 <tr>
                     <td>Tên</td>
-                    <td>Trạng thái</td>
+                    <td>Mật khẩu</td>
                 </tr>
                 <tbody>
                     <tr>
                         <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
+                            <div class="d-flex align-items-center" v-for="user in users" :key="user._id">
+                                <img :src="user.imgURL" alt=""
                                     style="width: 45px; height: 45px" class="rounded-circle" />
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">John Doe</p>
-                                    <p class="text-muted mb-0">john.doe@gmail.com</p>
+                                    <p class="fw-bold mb-1">{{ user.name }}</p>
+                                    <p class="text-muted mb-0">{{ user.email }}</p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="btn btn-success">Active</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
+                            <div class="d-flex align-items-center" v-for="user in users" :key="user._id">
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">Alex Ray</p>
-                                    <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                                    <p class="fw-bold mb-1">{{ user.password }}</p>
+                                    <p class="text-muted mb-0">{{ user.role }}</p>
                                 </div>
                             </div>
                         </td>
-                        <td>
-                            <span class="btn btn-warning">Đang đăng nhập</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">Kate Hunington</p>
-                                    <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="btn btn-danger">Thoát</span>
-                        </td>
-
                     </tr>
                 </tbody>
             </table>
@@ -92,57 +66,29 @@
                 </thead>
                 <tr>
                     <td>Tên</td>
-                    <td>Trạng thái</td>
+                    <td>Chức vụ</td>
                 </tr>
                 <tbody>
                     <tr>
                         <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
+                            <div class="d-flex align-items-center" v-for="employee in employees" :key="employee._id">
+                                <img :src="employee.imgURL" alt=""
                                     style="width: 45px; height: 45px" class="rounded-circle" />
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">John Doe</p>
-                                    <p class="text-muted mb-0">john.doe@gmail.com</p>
+                                    <p class="fw-bold mb-1">{{ employee.name }}</p>
+                                    <p class="text-muted mb-0">{{ employee.email }}</p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <span class="btn btn-success">Active</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
+                            <div class="d-flex align-items-center" v-for="employee in employees" :key="employee._id">
+                               
                                 <div class="ms-3">
-                                    <p class="fw-bold mb-1">Alex Ray</p>
-                                    <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                                    <p class="fw-bold mb-1">{{ employee.role }}</p>
+                                    <p class="text-muted mb-0">4 năm</p>
                                 </div>
                             </div>
                         </td>
-
-                        <td>
-                            <span class="btn btn-warning">Đang đăng nhập</span>
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                                    style="width: 45px; height: 45px" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">Kate Hunington</p>
-                                    <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                                </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span class="btn btn-danger">Thoát</span>
-                        </td>
-
                     </tr>
                 </tbody>
             </table>
@@ -152,7 +98,42 @@
 </template>
 
 <script>
+import EmployeeService from '../services/nhanvien.service';
+import UserService from '../services/user.service';
+
 export default {
+    data() {
+    return {
+      employees: [],
+      users: [],
+
+    };
+  },
+  props: {
+    id: { type: String, required: true },
+  },
+  methods: {
+    async retrieveEmployees() {
+      try {
+        this.employees = await EmployeeService.getAll();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async retrieveUser() {
+      try {
+        this.users = await UserService.getAll();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+  created() {
+    this.retrieveEmployees();
+    this.retrieveUser();
+    
+  },
+ 
 
 }
 </script>
