@@ -7,6 +7,10 @@ img {
   /* Đổi màu thành màu vàng */
 }
 
+.products{
+  min-height: 40vh;
+}
+
 .products-img{
   padding: 20px;
   display: flex;
@@ -23,6 +27,12 @@ img {
 
 li {
   list-style: none;
+}
+
+.product-title{
+  display: table-caption;
+  margin: 10px 125px;
+  padding: 3px;
 }
 
 .product-info {

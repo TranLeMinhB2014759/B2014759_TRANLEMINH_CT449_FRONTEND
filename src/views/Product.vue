@@ -1,4 +1,7 @@
 <template>
+  <div class="container product-title">
+    <h3>Thông tin sản phẩm</h3>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-sm-6 products-img" v-if="product" :key="product._id">

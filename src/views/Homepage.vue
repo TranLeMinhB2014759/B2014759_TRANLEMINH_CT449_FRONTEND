@@ -39,7 +39,7 @@
     </div>
   </div>
   <div class="container mt-3">
-    <div class="row">
+    <div class="row intro">
       <div class="col-sm-6">
         <div class="img-banner">
           <div class="centered-content">
