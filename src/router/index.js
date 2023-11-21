@@ -60,34 +60,34 @@ const routes = [
       {
         path: "",
         name: "awelcome",
-        component: () => import("@/Admin/AWelcome.vue"),
+        component: () => import("@/views/Admin/AWelcome.vue"),
       },
       {
         path: "user",
         name: "admin-user",
-        component: () => import("@/Admin/Manage_Users/User.vue"),
+        component: () => import("@/views/Admin/Manage_Users/User.vue"),
       },
 
       {
         path: "product",
         name: "admin-product",
-        component: () => import("@/components/Manage_Products/Manage_product_view.vue"),
-      },
-      {
-        path: "order",
-        name: "admin-order",
-        component: () => import("@/Admin/Manage_Orders/Orders.vue"),
+        component: () => import("@/views/Admin/Manage_Products/Manage_product_view.vue"),
       },
       {
         path: "add-product",
         name: "add-product",
-        component: () => import("@/Admin/Manage_Products/add_product.vue"),
+        component: () => import("@/views/Admin/Manage_Products/add_product.vue"),
       },
       {
         path: "edit-product/:id",
         name: "edit-product",
-        component: () => import("@/Admin/Manage_Products/edit_product.vue"),
+        component: () => import("@/views/Admin/Manage_Products/edit_product.vue"),
         props: true, 
+      },
+      {
+        path: "order",
+        name: "admin-order",
+        component: () => import("@/views/Admin/Manage_Orders/Orders.vue"),
       },
     ],
   },
