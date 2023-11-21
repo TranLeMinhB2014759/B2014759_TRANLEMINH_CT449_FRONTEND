@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import add from "@/components/position/add.vue";
-import ProductService from "../../services/hanghoa.service";
+import add from "@/components/Manage_Products/AddForm.vue";
+import ProductService from "@/services/hanghoa.service";
 
 export default {
     components: {
@@ -35,7 +35,7 @@ export default {
         try {
           await ProductService.create(data);
           this.message = "Thêm liên hệ mới thành công";
-          this.$router.push({ name: 'admin-position' });
+          this.$router.push({ name: 'admin-product' });
         } catch (error) {
           console.log(error);
         }

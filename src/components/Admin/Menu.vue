@@ -49,7 +49,7 @@
                             <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4"></path>
                         </svg>
 
-                        <router-link :to="{ name: 'admin-position' }" style="text-decoration: none; class " class="textp">
+                        <router-link :to="{ name: 'admin-product' }" style="text-decoration: none; class " class="textp">
                             Quản lí sản phẩm
                         </router-link>
                     </td>
@@ -69,7 +69,7 @@
                             <path d="M10 7h4"></path>
                         </svg>
 
-                        <router-link :to="{ name: 'dire' }" style="text-decoration: none; class " class="textp">
+                        <router-link :to="{ name: 'admin-order' }" style="text-decoration: none; class " class="textp">
                             Thống kê đơn hàng
                         </router-link>
                     </td>

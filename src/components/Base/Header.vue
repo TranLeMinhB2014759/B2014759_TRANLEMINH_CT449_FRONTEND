@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <a href="" class="navbar-brand">
                     <router-link :to="{ name: 'trangchu' }" class="nav-link">
-                        <img src="../assets/img/logo.png" alt="" class="rounded-circle logo-img mr-2">
+                        <img src="@/assets/img/logo.png" alt="" class="rounded-circle logo-img mr-2">
                         <span class="logo-text text-success">CÔNG TY GARDEN SUPPLY</span>
                     </router-link>
                 </a>
@@ -20,7 +20,7 @@
 
                         </li>
                         <li class="nav-item" v-if="!isLoggedIn" @click="signupUser()">
-                            <router-link :to="{ name: 'user.register' }" class="register">
+                            <router-link :to="{ name: 'signup' }" class="register">
                                 Đăng Ký
                             </router-link>
                         </li>
@@ -78,7 +78,7 @@
 <script>
 export default {
     components: {
-        AModal,
+        Modal,
 
     },
     data() {
@@ -126,7 +126,7 @@ export default {
         },
         signupUser() {
 
-            this.$router.push({ name: "user.register" });
+            this.$router.push({ name: "signup" });
         },
         openModal() {
             this.AModalVisible = false;
@@ -138,7 +138,7 @@ export default {
 
 <script setup>
 import { ref } from "vue";
-import AModal from "./AModal.vue";
+import Modal from "@/components/Admin/Modal.vue";
 
 
 const isShowModalRegister = ref(false)

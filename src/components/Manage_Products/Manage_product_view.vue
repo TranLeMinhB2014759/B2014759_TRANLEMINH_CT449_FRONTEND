@@ -1,7 +1,7 @@
 <template>
     <div>
         <button class="btn btn-sm" @click="goToAddProduct()">
-            <router-link :to="{ name: 'addposition' }" class="text-success">
+            <router-link :to="{ name: 'add-product' }" class="text-success">
                 <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
             </router-link>
         </button>
@@ -74,7 +74,7 @@
 </template>
   
 <script>
-import ProductService from '../services/hanghoa.service';
+import ProductService from '@/services/hanghoa.service';
 
 export default {
     data() {
@@ -84,9 +84,8 @@ export default {
         };
     },
     props: {
-        id: { type: String, required: true },
+        id: ['id'],
     },
-
     methods: {
         async retrieveProducts() {
             try {
@@ -108,10 +107,10 @@ export default {
             }
         },
         goToAddProduct() {
-            this.$router.push({ name: 'addposition' });
+            this.$router.push({ name: 'add-product' });
         },
         goToEditProduct(id) {
-            this.$router.push({ name: 'editposition', params: { id } });
+            this.$router.push({ name: 'edit-product', params: { id } });
         },
 
 

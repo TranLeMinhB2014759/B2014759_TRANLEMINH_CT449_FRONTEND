@@ -1,6 +1,6 @@
 <script>
-import AHeader from "@/components/AHeader.vue";
-import AMenu from "@/components/AMenu.vue";
+import AHeader from "@/components/Admin/Header.vue";
+import AMenu from "@/components/Admin/Menu.vue";
 
 export default {
 

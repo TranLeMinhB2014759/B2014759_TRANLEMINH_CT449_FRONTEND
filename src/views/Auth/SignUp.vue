@@ -5,7 +5,7 @@
 </template>
   
 <script>
-import FormRegister from "@/components/SignUpForm.vue";
+import FormRegister from "@/components/AuthForm/SignUpForm.vue";
 import UserService from "@/services/user.service.js";
 
 export default {
@@ -13,10 +13,10 @@ export default {
     FormRegister,
   },
 
-  props: {
-    user: { type: Object, required: true },
+  // props: {
+  //   user: { type: Object, required: true },
 
-  },
+  // },
 
   data() {
     return {

@@ -3,7 +3,7 @@
 </template>
   
 <script>
-import FormLogin from "@/components/LoginForm.vue";
+import FormLogin from "@/components/AuthForm/LoginForm.vue";
 import UserService from "@/services/user.service.js";
 
 export default {
@@ -19,7 +19,7 @@ export default {
         async loginUser(data) {
             try {
                 const response = await UserService.login(data);
-                console.log("hello", response);
+                // console.log("hello", response);
                 localStorage.setItem('user', JSON.stringify(response.user));
 
                 if (response && response.message === 'Đăng nhập thành công') {

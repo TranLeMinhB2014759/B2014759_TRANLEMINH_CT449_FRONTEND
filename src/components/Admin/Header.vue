@@ -10,7 +10,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar brand -->
                     <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                        <img class="img-rounded" alt="Cinque Terre" src="../assets/img/logo.png" border-radius="50%"
+                        <img class="img-rounded" alt="Cinque Terre" src="@/assets/img/logo.png" border-radius="50%"
                             loading="lazy" />
                     </a>
                     <!-- Left links -->
@@ -25,7 +25,7 @@
                     <div class="dropdown">
                         <a class=" d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
                             role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <img src="../assets/img/user.jpg" class="rounded-circle" height="55" width="60"
+                            <img src="@/assets/img/user.jpg" class="rounded-circle" height="55" width="60"
                                 alt="Black and White Portrait of a Man" loading="lazy" />
                         </a>
 

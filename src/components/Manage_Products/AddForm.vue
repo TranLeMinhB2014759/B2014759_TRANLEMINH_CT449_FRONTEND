@@ -1,5 +1,7 @@
 <template>
   <div>
+
+
     <Form @submit="submitProduct" :validation-schema="productFormSchema">
       <!-- Tên sản phẩm -->
       <div class="form-group">
@@ -45,17 +47,17 @@
 
       <div class="form-group">
         <button type="submit" class="btn btn-primary">
-          Lưu
+          Thêm Dữ Liệu
         </button>
       </div>
     </Form>
 
-    <router-link :to="{ name: 'admin-position' }">
+    <router-link :to="{ name: 'admin-product' }">
       <button class="exit-button">Thoát</button>
     </router-link>
   </div>
 </template>
-    
+  
 <script>
 import { ErrorMessage, Field, Form } from "vee-validate";
 import * as yup from "yup";
@@ -66,9 +68,6 @@ export default {
     ErrorMessage,
   },
   emits: ["submit:product"],
-  props: {
-    product: { type: Object, required: true },
-  },
   data() {
     const productFormSchema = yup.object().shape({
       TenHH: yup
@@ -81,17 +80,29 @@ export default {
         .required("Mô tả sản phẩm phải có giá trị."),
       Gia: yup
         .number()
-        .required("Giá sản phẩm phải có giá trị.")
-        .min(0, "Giá sản phẩm không thể âm."),
+        .typeError("vui loàng nhập giá.")
+        .required("Giá sản phẩm không được để trống.")
+        .min(0, "Giá sản phẩm không thể âm.")
+        .moreThan(0, "Giá sản phẩm phải lớn hơn 0."),
+
       SoLuongHangHoa: yup
         .number()
-        .required("Số lượng sản phẩm phải có giá trị.")
+        .typeError("Vui lòng nhập số lượng.")
+        .required("Số lượng sản phẩm không được để trống.")
         .min(1, "Số lượng sản phẩm phải ít nhất là 1."),
-      GhiChu: yup.string(),
+
+      GhiChu: yup.string().required("Vui lòng nhập ghi chú."),
       imgURL: yup.string().required("Vui lòng chọn một ảnh."),
     });
     return {
-      productLocal: this.product,
+      productLocal: {
+        TenHH: "",
+        MoTaHH: "",
+        Gia: "",
+        SoLuongHangHoa: "",
+        GhiChu: "",
+        imgURL: "",
+      },
       productFormSchema,
 
     };
@@ -104,7 +115,7 @@ export default {
   },
 };
 </script>
-    
+  
 <style scoped>
 /* Improved styling */
 h1 {
@@ -156,4 +167,4 @@ h1 {
   top: -70px;
 }
 </style>
-    
+  

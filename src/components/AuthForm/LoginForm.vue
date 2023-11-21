@@ -47,7 +47,7 @@
 
           <div class="text-center login-signup">
             <a class="txt" @click="goToAddUsers()">
-              <router-link :to="{ name: 'user.register' }">
+              <router-link :to="{ name: 'signup' }">
                 Create your Account
               <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
             </router-link>
@@ -106,7 +106,7 @@ export default {
             this.$emit("submit:login", this.loginLocal);
         },
         goToAddUsers() {
-            this.$router.push({ name: 'user.register' });
+            this.$router.push({ name: 'signup' });
         },
     },
 

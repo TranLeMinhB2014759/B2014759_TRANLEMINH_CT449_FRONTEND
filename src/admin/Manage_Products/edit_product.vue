@@ -6,8 +6,8 @@
 </template>
   
 <script>
-import edit from "../../components/position/edit.vue";
-import ProductService from "../../services/hanghoa.service";
+import edit from "@/components/Manage_Products/EditForm.vue";
+import ProductService from "@/services/hanghoa.service";
 
 export default {
     components: {
@@ -33,7 +33,7 @@ export default {
             const confirmed = window.confirm("Bạn có chắc cập nhật sản phẩm này?");
             if (confirmed) {
                 try {
-                    await ProductService.update(this.product._id, data);
+                    await ProductService.update(this.product ? this.product._id : null, data);
                     this.message = "Cập nhật sản phẩm thành công";
                     alert(this.message);
                 } catch (error) {
