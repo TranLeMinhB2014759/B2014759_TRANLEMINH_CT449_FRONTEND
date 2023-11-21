@@ -54,6 +54,9 @@ export default {
       this.retrieveProducts();
       this.activeIndex = -1;
     },
+    goToAddProduct() {
+      this.$router.push({ name: 'add-product' });
+    },
   },
   created() {
     // Automatically call refreshList() when the component is created
@@ -63,7 +66,13 @@ export default {
 </script>
 
 <template>
+    <div class="banner text-center">QUẢN LÝ SẢN PHẨM</div>
   <div class="container">
+    <button class="btn btn-sm" @click="goToAddProduct()">
+      <router-link :to="{ name: 'add-product' }" class="text-success">
+        <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
+      </router-link>
+    </button>
     <div class="row">
       <div class="container col-4">
         <InputSearch v-model="searchText" />
@@ -72,32 +81,40 @@ export default {
     </div>
     <div class="row">
       <div class="mt-3 col-4 products">
-        <ProductListAdmin v-if="filteredProductsCount > 0" :products="filteredProducts" v-model:activeIndex="activeIndex" />
+        <ProductListAdmin v-if="filteredProductsCount > 0" :products="filteredProducts"
+          v-model:activeIndex="activeIndex" />
         <p v-else>Không có sản phẩm phù hợp.</p>
       </div>
       <div class="mt-3 col-8">
         <div v-if="activeProduct">
-        <h4>
-          Thông tin sản phẩm
-          <ProductCardAdmin :product="activeProduct" />
-          <router-link
-            :to="{
+          <h4>
+            Thông tin sản phẩm
+            <ProductCardAdmin :product="activeProduct" />
+            <router-link :to="{
               name: 'edit-product',
               params: { id: activeProduct._id },
-            }"
-          >
-            <span class="mt-2 badge badge-warning">
-              <i class="fas fa-edit"></i> Hiệu chỉnh
-            </span>
-          </router-link> 
-        </h4>
-      </div>
+            }">
+              <span class="mt-2 badge badge-warning">
+                <i class="fas fa-edit"></i> Hiệu chỉnh
+              </span>
+            </router-link>
+          </h4>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style>
-    .badge{
-        --bs-badge-color: black !important;
-    }
+.badge {
+  --bs-badge-color: black !important;
+}
+
+.banner {
+  background-color: antiquewhite;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: 600;
+}
 </style>

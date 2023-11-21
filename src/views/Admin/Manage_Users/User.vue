@@ -1,141 +1,119 @@
-<template>
-    <div class="row">
-        <div class="col-sm-6">
-            <table class="table align-middle mb-0 bg-white">
-
-                <thead class="bg-light">
-                    <tr class="table-info">
-                        <th scope="row"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users"
-                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
-                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
-                            </svg>Khách hàng</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td>Tên</td>
-                    <td>Mật khẩu</td>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center" v-for="user in users" :key="user._id">
-                                <img :src="user.imgURL" alt=""
-                                    style="width: 45px; height: 45px" class="rounded-circle" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">{{ user.name }}</p>
-                                    <p class="text-muted mb-0">{{ user.email }}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center" v-for="user in users" :key="user._id">
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">{{ user.password }}</p>
-                                    <p class="text-muted mb-0">{{ user.role }}</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <div class="col-sm-6">
-            <table class="table align-middle mb-0 bg-white">
-
-                <thead class="bg-light">
-                    <tr class="table-info">
-                        <th scope="row"><svg xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-users-group" width="24" height="24" viewBox="0 0 24 24"
-                                stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                                <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
-                                <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                                <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
-                                <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                                <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
-                            </svg>Nhân Viên</th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td>Tên</td>
-                    <td>Chức vụ</td>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center" v-for="employee in employees" :key="employee._id">
-                                <img :src="employee.imgURL" alt=""
-                                    style="width: 45px; height: 45px" class="rounded-circle" />
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">{{ employee.name }}</p>
-                                    <p class="text-muted mb-0">{{ employee.email }}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center" v-for="employee in employees" :key="employee._id">
-                               
-                                <div class="ms-3">
-                                    <p class="fw-bold mb-1">{{ employee.role }}</p>
-                                    <p class="text-muted mb-0">4 năm</p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-</template>
-
 <script>
-import EmployeeService from '@/services/nhanvien.service';
-import UserService from '@/services/user.service';
-
+import UserListAdmin from "@/components/Manage_Users/UserListAdmin.vue";
+import UserCardAdmin from "@/components/Manage_Users/UserCardAdmin.vue";
+import InputSearch from "@/components/InputSearch.vue";
+import UserService from "@/services/user.service.js";
 export default {
-    data() {
+  components: {
+    InputSearch,
+    UserListAdmin,
+    UserCardAdmin,
+  },
+  data() {
     return {
-      employees: [],
       users: [],
-
+      activeIndex: -1,
+      searchText: "",
     };
   },
-  props: {
-    id: { type: String, required: true },
+  watch: {
+    searchText() {
+      this.activeIndex = -1;
+    },
+  },
+  computed: {
+    userStrings() {
+      return this.users.map((user) => {
+        const { name, password, email, role, imgURL } = user;
+        return [name, password, email, role, imgURL].join("");
+      });
+    },
+    filteredUsers() {
+      if (!this.searchText) return this.users;
+      return this.users.filter((_user, index) =>
+        this.userStrings[index].includes(this.searchText)
+      );
+    },
+    activeUser() {
+      if (this.activeIndex < 0) return null;
+      return this.filteredUsers[this.activeIndex];
+    },
+    filteredUsersCount() {
+      return this.filteredUsers.length;
+    },
   },
   methods: {
-    async retrieveEmployees() {
-      try {
-        this.employees = await EmployeeService.getAll();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async retrieveUser() {
+    async retrieveUsers() {
       try {
         this.users = await UserService.getAll();
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
+    },
+    refreshList() {
+      this.retrieveUsers();
+      this.activeIndex = -1;
+    },
+    goToAddUser() {
+      this.$router.push({ name: 'addp-user' });
     },
   },
   created() {
-    this.retrieveEmployees();
-    this.retrieveUser();
-    
+    // Automatically call refreshList() when the component is created
+    this.refreshList();
   },
- 
-
-}
+};
 </script>
 
-<style scoped></style>
+<template>
+  <div class="banner text-center">QUẢN LÝ TÀI KHOẢN</div>
+  <div class="container">
+    <button class="btn btn-sm" @click="goToAddUser()">
+      <router-link :to="{ name: 'add-user' }" class="text-success">
+        <i class="fas fa-plus fa-2x" aria-hidden="true"></i>
+      </router-link>
+    </button>
+    <div class="row">
+      <div class="container col-4">
+        <InputSearch v-model="searchText" />
+      </div>
+      <div class="col-8"></div>
+    </div>
+    <div class="row">
+      <div class="mt-3 col-4 products">
+        <UserListAdmin v-if="filteredUsersCount > 0" :users="filteredUsers" v-model:activeIndex="activeIndex" />
+        <p v-else>Không tìm thấy tài khoản phù hợp.</p>
+      </div>
+      <div class="mt-3 col-8">
+        <div v-if="activeUser">
+          <h4>
+            Thông tin tài khoản
+            <UserCardAdmin :user="activeUser" />
+            <router-link :to="{
+              name: 'edit-user',
+              params: { id: activeUser._id },
+            }">
+              <span class="mt-2 badge badge-warning">
+                <i class="fas fa-edit"></i> Hiệu chỉnh
+              </span>
+            </router-link>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<style>
+.badge {
+  --bs-badge-color: black !important;
+}
+
+.banner {
+  background-color: antiquewhite;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: 600;
+}
+</style>

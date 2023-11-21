@@ -18,7 +18,7 @@ export default {
 
 <template>
     <div class="inputsearch-title">
-        <h3>Tìm kiếm sản phẩm</h3>
+        <h3>Tìm kiếm</h3>
     </div>
     <div class="input-group">
         <input type="text" class="form-control" placeholder="Nhập thông tin cần tìm" :value="modelValue"

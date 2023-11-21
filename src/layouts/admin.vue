@@ -19,7 +19,7 @@ export default {
             <div class="col-sm-3">
                 <AMenu />
             </div>
-            <div class="col-sm-9" style="padding: 10px 30px;">
+            <div class="col-sm-9">
                 <router-view></router-view>
             </div>
         </div>

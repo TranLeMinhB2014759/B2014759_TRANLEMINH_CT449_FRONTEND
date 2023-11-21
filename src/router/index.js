@@ -67,11 +67,21 @@ const routes = [
         name: "admin-user",
         component: () => import("@/views/Admin/Manage_Users/User.vue"),
       },
-
+      {
+        path: "add-user",
+        name: "add-user",
+        component: () => import("@/views/Admin/Manage_Users/add_user.vue"),
+      },
+      {
+        path: "edit-user/:id",
+        name: "edit-user",
+        component: () => import("@/views/Admin/Manage_Users/edit_user.vue"),
+        props: true, 
+      },
       {
         path: "product",
         name: "admin-product",
-        component: () => import("@/views/Admin/Manage_Products/Manage_product_view.vue"),
+        component: () => import("@/views/Admin/Manage_Products/Product.vue"),
       },
       {
         path: "add-product",

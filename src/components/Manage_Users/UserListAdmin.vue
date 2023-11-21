@@ -1,21 +1,21 @@
 <script>
-import ProductService from "@/services/hanghoa.service.js";
+import UserService from "@/services/user.service.js";
 export default {
   props: {
-    products: { type: Array, default: [] },
-    activeIndex: { type: Number, default: -1 },
-    product: { type: Object, required: true },
+    users: { type: Array, deafault: [] },
+    activeIndex: { type: Number, deafault: -1 },
+    user: { type: Object, required: true },
   },
-  emits: ["update:activeIndex", "delete:product"],
+  emits: ["update:activeIndex", "delete:user"],
   methods: {
     updateActiveIndex(index) {
       this.$emit("update:activeIndex", index);
     },
-    async deleteProduct(id) {
-      const confirmed = window.confirm("Bạn có chắc muốn xóa sản phẩm này?");
+    async deleteUser(id) {
+      const confirmed = window.confirm("Bạn có chắc muốn xóa tài khoản này không?");
       if (confirmed) {
-        await ProductService.delete(id);
-        this.$emit("delete:product");
+        await UserService.delete(id);
+        this.$emit("delete:user");
         location.reload();
       }
     },
@@ -27,13 +27,13 @@ export default {
   <ul class="list-group">
         <li 
             class="list-group-item d-flex justify-content-between align-items-start"
-            v-for="(product, index) in products"
+            v-for="(user, index) in users"
             :key="index"
             :class="{active: index === activeIndex}"
             @click="updateActiveIndex(index)"
         >
-        {{  product.TenHH }}
-          <button type="button" class="ml-2 btn btn-danger" @click="deleteProduct(product._id)" >
+        {{  user.name }}
+          <button type="button" class="ml-2 btn btn-danger" @click="deleteUser(user._id)" >
             <i class="fa fa-trash"></i>
           </button> 
         </li>

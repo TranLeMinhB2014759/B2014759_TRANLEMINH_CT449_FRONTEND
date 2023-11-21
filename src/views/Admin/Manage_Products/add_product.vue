@@ -34,7 +34,7 @@ export default {
       if (confirmed) {
         try {
           await ProductService.create(data);
-          this.message = "Thêm liên hệ mới thành công";
+          this.message = "Thêm sản phẩm mới thành công";
           this.$router.push({ name: 'admin-product' });
         } catch (error) {
           console.log(error);

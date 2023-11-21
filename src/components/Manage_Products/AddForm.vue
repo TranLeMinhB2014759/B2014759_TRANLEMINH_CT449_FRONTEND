@@ -1,7 +1,5 @@
 <template>
-  <div>
-
-
+  <div class="container" style="padding: 20px 70px;">
     <Form @submit="submitProduct" :validation-schema="productFormSchema">
       <!-- Tên sản phẩm -->
       <div class="form-group">
