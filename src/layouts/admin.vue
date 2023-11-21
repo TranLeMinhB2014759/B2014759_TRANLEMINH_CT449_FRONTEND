@@ -15,11 +15,11 @@ export default {
         <AHeader />
 
 
-        <div class="row">
+        <div class="row" style="--bs-gutter-x: none">
             <div class="col-sm-3">
                 <AMenu />
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9" style="padding: 10px 30px;">
                 <router-view></router-view>
             </div>
         </div>
