@@ -55,7 +55,7 @@ export default {
       this.activeIndex = -1;
     },
     goToAddUser() {
-      this.$router.push({ name: 'addp-user' });
+      this.$router.push({ name: 'add-user' });
     },
   },
   created() {
