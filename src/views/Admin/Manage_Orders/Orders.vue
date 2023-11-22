@@ -1,5 +1,5 @@
 <template>
-    <div class="banner text-center">QUẢN LÝ SẢN PHẨM</div>
+    <div class="banner text-center">QUẢN LÝ ĐƠN HÀNG</div>
     <div class="container row">
         <div class="col-sm-12" style="text-align: center;">
             <h3>Đơn đặt hàng</h3>

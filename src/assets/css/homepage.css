@@ -22,6 +22,21 @@
     border-radius: 10px;
 }
 
+.img-banner2 {
+    background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20220528/pngtree-smiling-girl-with-apple-recommends-daily-fruit-intake-photo-image_36780112.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 55vh;
+    width: 100%;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    text-align: center;
+    color: aliceblue;
+    border-radius: 10px;
+}
+
 .centered-content {
     height: 100%;
     display: flex;

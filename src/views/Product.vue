@@ -100,7 +100,7 @@ export default {
         await CartService.create(data);
 
         // Redirect to the correct route
-        this.$router.push({ name: 'events' });
+        this.$router.push({ name: 'cart' });
         // Replace 'your-route-name' with the actual name of the route you want to navigate to.
       } catch (error) {
         console.error(error);

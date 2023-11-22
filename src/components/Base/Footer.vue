@@ -10,7 +10,7 @@
         <!-- Grid row -->
         <div class="row mt-3">
           <!-- Grid column -->
-          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <div class="col-4 mx-auto mb-4">
             <!-- Content -->
             <h6 class="text-uppercase fw-bold mb-4">
               Công Ty GARDEN SUPPLY:
@@ -23,42 +23,9 @@
               Điện thoại: (+84) 939111333
             </p>
           </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-            <!-- Links -->
-            <h6 class="text-uppercase fw-bold mb-4">
-              Phát triển bởi:
-            </h6>
-            <div class="dvtv">
-              <div>
-                <img src="https://nongsansachstore.com/wp-content/uploads/2021/04/san-pham-sach.jpg" alt="">
-
-
-              </div>
-              <div>
-                <img src="	https://nongsansachstore.com/wp-content/uploads/2021/05/Logo-doi-tra-hang.png" alt="">
-
-              </div>
-
-              <div>
-                <img src="	https://nongsansachstore.com/wp-content/uploads/2021/04/giao-hang-ca-nuoc.jpg" alt="">
-
-              </div>
-
-            </div>
+          <div class="col-4">
           </div>
-
-          <!-- Grid column -->
-
-
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <div class="col-4 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Liên Hệ</h6>
             <p><i class="fas fa-home me-3"></i>Khu II - Đại học Cần Thơ</p>

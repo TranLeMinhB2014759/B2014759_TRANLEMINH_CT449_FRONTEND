@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="menu">
         <table class="table align-middle  table-secondary">
             <thead class="bg-light">
                 <tr>
@@ -59,6 +59,10 @@ export default {
 </script>
 
 <style scoped>
+.menu{
+    border-right: 1px solid;
+    height: 88vh ;
+}
 .table tbody tr:hover {
     background-color: #f2f2f2;
     cursor: pointer;

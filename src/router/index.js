@@ -41,14 +41,14 @@ const routes = [
         component: () => import("@/views/Auth/SignUp.vue"),
       },
       {
-        path: "/events",
-        name: "events", //name: "events/:id",
-        component: () => import("@/views/Event.vue"),
+        path: "/cart",
+        name: "cart", //name: "cart/:id",
+        component: () => import("@/views/Cart.vue"),
       },
       {
-        path: "/psuccess",
-        name: "psuccess",
-        component: () => import("@/views/Psuccess.vue"),
+        path: "/order",
+        name: "order",
+        component: () => import("@/views/Order.vue"),
       },
     ],
   },
@@ -59,8 +59,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: "awelcome",
-        component: () => import("@/views/Admin/AWelcome.vue"),
+        name: "welcome",
+        component: () => import("@/views/Admin/Welcome.vue"),
       },
       {
         path: "user",

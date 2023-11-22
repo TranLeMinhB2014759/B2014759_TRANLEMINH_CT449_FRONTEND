@@ -30,9 +30,9 @@
                                     loading="lazy" />
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
+                                <!-- <li>
                                     <a class="dropdown-item" @click="OpenModalRegister">Thay đổi thông tin</a>
-                                </li>
+                                </li> -->
                                 <li>
                                     <a class="dropdown-item" @click="logout">Đăng xuất &nbsp<i
                                             class="fa fa-sign-out"></i></a>
@@ -61,9 +61,9 @@
                 </div>
 
                 <div class="nav-item" style="margin-right: 16px; color: white; "  v-if="isLoggedIn">
-                    <router-link :to="{ name: 'psuccess' }" class="nav-link" style="color: #ffffff;">
+                    <router-link :to="{ name: 'order' }" class="nav-link" style="color: #ffffff;">
                         <i class="fa-solid fa-cart-shopping"></i>
-                        Đơn hàng của bạn
+                        Giỏ hàng
                     </router-link>
                 </div>
                 <div :class="'nav-item'" style="color: white;margin-right: auto;"></div>

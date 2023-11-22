@@ -77,6 +77,40 @@
       </div>
     </div>
   </div>
+
+  <div class="container mt-3">
+    <div class="row intro">
+      <div class="col-sm-6">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <ul>
+                <h3>CÔNG DỤNG CỦA TRÁI CÂY KHÔNG PHẢI AI CŨNG BIẾT</h3>
+                <li>Ăn trái cây mỗi ngày giúp kháng viêm, ngăn ngừa các bệnh mạn tính, củng cố sức khỏe đường ruột, giúp
+                  bù nước, đẹp da và hỗ trợ giảm cân. Bên cạnh hương vị ngon, tác dụng giải khát, trái cây chứa nhiều
+                  vitamin, khoáng chất và chất xơ, là nguồn thực phẩm lành mạnh, dễ tìm kiếm trong đời sống hàng ngày.
+                </li>
+                <br>
+                <li>
+                  Là một phần của chế độ ăn uống lành mạnh tổng thể, ăn các loại thực phẩm như trái cây có hàm lượng calo
+                  thấp hơn trong mỗi cốc thay vì một số thực phẩm khác có hàm lượng calo cao hơn có thể hữu ích trong việc
+                  giúp giảm lượng calo tiêu thụ từ đó kiểm giúp người dùng kiểm soát cân nặng.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="img-banner2">
+          <div class="centered-content">
+            <h1></h1>
+            <p class="centered-text"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>@import "@/assets/css/homepage.css";</style>

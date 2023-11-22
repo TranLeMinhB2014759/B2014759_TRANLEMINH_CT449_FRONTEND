@@ -2,8 +2,10 @@
     <div class="contaiter">
         <div class="row">
             <div class="col-sm-12">
-                <h3>Đặt hàng thành công</h3>
-
+                <div class="text-center title">
+                    <h3>Đơn hàng của bạn</h3>
+                </div>
+                
                 <div v-for="order in filteredOrders" :key="order.customerInfo._id">
                     <label><b>MSKH:</b></label>
                     <label>{{ order.MSKH }}</label> <br>
@@ -16,78 +18,49 @@
                 <div v-for="order in filteredOrders" :key="order.customerInfo._id">
                     <label><b>Ngày đặt hàng:</b> {{ order.NgayDH }}</label><br>
                     <label><b>Ngày giao hàng:</b> {{ order.NgayGH }}</label><br>
-
-
                     <label><b>Người giao hàng:</b> {{ order.employeeInfo.name }}</label><br>
-
-
                     <!-- Button to confirm the status change -->
                     <div><b>Trạng thái: </b>{{ order.TrangthaiDH }}</div>
                 </div>
-
-
             </div>
         </div>
-
-
 
         <div class="container">
             <div class="col-sm-12">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="display: none;">id</th>
-                            <th scope="col">Sản phẩm</th>
-                            <th style="width: 300px" scope="col"></th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th style="width: 300px" scope="col">Hình ảnh</th>
                             <th scope="col">Giá</th>
-
                             <th style="width: 120px" scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
-                            <td style="display: none;">
-                                <input name="" type="text" />
-                            </td>
-                            <td><img :src="cart.productDetails.imgURL" alt="cart Image" class="img"></td>
                             <td>{{ cart.productDetails.TenHH }}</td>
-                            <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
-
+                            <td><img :src="cart.productDetails.imgURL" alt="cart Image" class="img"></td>
+                            <td>{{ 1 * cart.productDetails.Gia }} VNĐ</td>
                             <td>
                                 {{ cart.SoLuong }}
                             </td>
                             <td>
-                                {{ calculateTotal(cart) }}.000 VNĐ
+                                {{ calculateTotal(cart) }} VNĐ
                             </td>
                         </tr>
                     </tbody>
                     <tr>
-                        <td style="background-color: #ccc;">
+                        <td colspan="4">
                             <b>Tổng đơn hàng:</b>
                         </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td class="text-dark"><b>{{ totalAmount }}.000 vnđ</b></td>
                     </tr>
                 </table>
 
             </div>
             <router-link :to="{ name: 'products' }">
-                <button style="
-            float: right;
-            width: 100%;
-            overflow: hidden;
-            color: #fff;
-            height: 50px;
-            margin: 10px auto;
-            border-radius: 4px;
-            background: #00ab9f;
-            border-radius: 18px;
-            border: 0;
-            cursor: pointer;
-          " @click="clearCartAndNavigate">
+                <button class="back" @click="clearCartAndNavigate">
                     Tiếp tục mua hàng
                 </button>
 
@@ -168,7 +141,7 @@ export default {
                 console.error(error);
             }
         },
-       async clearCartAndNavigate() {
+        async clearCartAndNavigate() {
             // Clear the cart data
             try {
                 // Retrieve userId from localStorage
@@ -187,7 +160,7 @@ export default {
             }
 
             // Assuming you have a route named 'auth' defined in your router configuration
-            
+
         },
 
     },
@@ -199,6 +172,10 @@ export default {
 </script>
   
 <style scoped>
+.title{
+    margin: 20px;
+}
+
 img {
     width: 75%;
     border-radius: 5px;
@@ -216,6 +193,19 @@ img {
 
 .btn-success {
     margin-right: 10px;
+}
+
+.back {
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    height: 50px;
+    margin: 10px auto;
+    border-radius: 4px;
+    background: #00ab9f;
+    border-radius: 18px;
+    border: 0;
+    cursor: pointer;
 }
 </style>
 

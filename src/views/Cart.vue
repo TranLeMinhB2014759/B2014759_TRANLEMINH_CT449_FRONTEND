@@ -1,46 +1,31 @@
 <template>
     <div class="container info-user" style="text-align:center">
         <div class="row">
-            <div class="col-sm-9">
-
-                <table>
+            <div class="col-sm-9" style="border-right: 1px solid;">
+                <table class="table">
                     <thead>
-
-
                         <tr>
-                            <th style="display: none;">id_sach</th>
                             <th scope="col">Sản phẩm</th>
-                            <th style="width:300px" scope="col"></th>
+                            <th style="width: 300px;" scope="col">Hình ảnh</th>
                             <th scope="col">Giá</th>
-                            <th style="width:120px" scope="col">Số lượng</th>
+                            <th scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
-
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
-
-                            <td style="display: none;"></td>
+                            <th scope="row">{{ cart.productDetails.TenHH }}</th>
                             <td><img :src="cart.productDetails.imgURL" alt="cart Image" class="img"></td>
-                            <td>{{ cart.productDetails.TenHH }}</td>
-                            <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
+                            <td>{{ 1 * cart.productDetails.Gia }} VNĐ</td>
                             <td>
                                 {{ cart.SoLuong }}
                             </td>
-
-
-                            <td>{{ calculateTotal(cart) }}.000 vnđ</td>
-                            <td colspan="2">
+                            <td>{{ calculateTotal(cart) }} VNĐ</td>
+                            <td>
                                 <form>
                                     <button class="btn btn-danger" @click="deleteProduct(cart._id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-circle-x" width="24" height="24"
-                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-                                            <path d="M10 10l4 4m0 -4l-4 4"></path>
-                                        </svg>
+                                        <i class="fa-solid fa-delete-left"></i>
                                     </button>
                                 </form>
                             </td>
@@ -48,50 +33,34 @@
                     </tbody>
                 </table>
 
-                <div>
-                    <div style="background-color: #CCC;"><b>Tổng đơn hàng:</b></div>
-                    <div>{{ totalAmount }}.000 vnđ</div>
-                </div>
+                <table class="table total">
+                        <tr>
+                            <th>Tổng đơn hàng:</th>
+                            <th>{{ totalAmount }}.000 vnđ</th>
+                        </tr>
+                </table>
                 <router-link :to="{ name: 'products' }">
                     <button class="btn btn-success" @click="navigateToIndex">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M5 12l14 0"></path>
-                            <path d="M5 12l6 6"></path>
-                            <path d="M5 12l6 -6"></path>
-                        </svg>
-
+                        <i class="fa-solid fa-arrow-left"></i>
                         Tiếp tục mua hàng</button>
-
                 </router-link>
 
-
-
-
-
-
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3" style="border-right: 1px solid;">
                 <h5 class="text-dark">THÔNG TIN KHÁCH HÀNG</h5>
                 <form class="text-dark" style="color:#e3e3e3" @submit.prevent="submitForm">
-
-                    <label>Họ và tên:
-                        <input type="text" required v-model="customer.hoten" placeholder="Nhập họ và tên">
+                    <label class="form-label">Họ và tên:
+                        <input type="text" class="form-control" required v-model="customer.hoten" placeholder="Nhập họ và tên">
                     </label>
-                    <label>Số điện thoại:
-                        <input type="text" required v-model="customer.sdt" placeholder="Nhập số điện thoại">
+                    <label class="form-label">Số điện thoại:
+                        <input type="text" class="form-control" required v-model="customer.sdt" placeholder="Nhập số điện thoại">
                     </label>
                     <div>
-
-
                         <div> <b> Ngày đặt hàng:</b> {{ getCurrentDate() }}</div>
-                        <div> <b> Ngày giao hàng:</b> {{ getExpectedDeliveryDate() }}(dự kiến)</div>
+                        <div> <b> Ngày giao hàng:</b> {{ getExpectedDeliveryDate() }}</div>
                     </div>
-
                     <h5>CHỌN CÁCH THỨC NHẬN HÀNG</h5>
-                    <label>
+                    <label class="form-label">
                         <input type="radio" required v-model="customer.postage" value="Yes" />Giao tận nơi
                     </label>
                     <label>
@@ -101,22 +70,15 @@
                         <div class="container">
                             <h5>Chọn địa chỉ nhận hàng:</h5>
                             <input type="text">
-
-
-
                         </div>
                     </div>
                     <div v-else>
                         <div href="/"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Khu 2, Đ. 3/2, P. Xuân Khánh,
                             Q. Ninh Kiều, TP. CT</div>
                     </div>
-
-
                     <button
                         style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">
-
                         Đặt hàng
-
                     </button>
                 </form>
             </div>
@@ -131,13 +93,8 @@ export default {
     data() {
         return {
             carts: [],
-
             userId: '',
-
             deliveryDays: 3,
-
-
-
             customer: {
                 hoten: '',
                 sdt: '',
@@ -147,7 +104,6 @@ export default {
                 ward: 'Dich Vong',
                 pt: 'Chuyển khoản qua ngân hàng',
             },
-
         };
     },
     props: {
@@ -187,9 +143,6 @@ export default {
         calculateTotal(cart) {
             return cart.productDetails.Gia * cart.SoLuong;
         },
-
-
-
         async created() {
             try {
                 // Retrieve userId from localStorage
@@ -232,11 +185,9 @@ export default {
 
             // Redirect to the success page and pass the customer information
             this.$router.push({
-                name: 'psuccess',
+                name: 'order',
             });
         },
-
-
         decreaseQuantity() {
             if (this.SoLuongHH > 1) {
                 this.SoLuongHH--;
@@ -245,7 +196,6 @@ export default {
         increaseQuantity() {
             this.SoLuongHH++;
         },
-
 
     },
     created() {
@@ -271,7 +221,7 @@ img {
 }
 
 .btn-success {
-    margin-right: 10px;
+    margin-bottom: 30px;
 }
 
 .product-quantity {
@@ -297,5 +247,15 @@ img {
 #quantity {
     margin: 0 10px;
     font-size: 18px;
+}
+
+.total{
+    background-color: rgb(14 171 0 / 39%);
+    border-radius: 10px;
+    height: 50px;
+}
+
+h5{
+    margin: 20px 0;
 }
 </style>
