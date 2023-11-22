@@ -26,7 +26,7 @@ export default {
                     // Check the user's role
                     if (response.user.role === 'admin') {
                         this.message = "Đăng nhập thành công vào trang admin";
-                        this.$router.push({ name: 'awelcome' }); // Assuming 'admin' is the name of your admin route.
+                        this.$router.push({ name: 'welcome' }); // Assuming 'admin' is the name of your admin route.
                     } else {
                         this.message = "Đăng nhập thành công";
                         this.$router.push({ name: 'trangchu' }); // Assuming 'auth' is the name of your user route.
