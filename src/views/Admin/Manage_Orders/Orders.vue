@@ -1,191 +1,165 @@
 <template>
-    <div class="row">
+    <div class="banner text-center">QUẢN LÝ SẢN PHẨM</div>
+    <div class="container row">
         <div class="col-sm-12" style="text-align: center;">
-            <h3>Thống kê đơn đặt hàng</h3>
+            <h3>Đơn đặt hàng</h3>
             <label><b>Tổng số đơn hàng:</b></label>
-            <label>{{ customers.length }}</label>
-        </div>
+            <label>1</label>
 
-        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-12">
             <div>
                 <label><b>Tổng doanh thu:</b></label>
                 <label>{{ totalAmount }}.000 vnđ</label>
             </div>
-            <div>
-                <label><b>Người giao:</b></label>
-                <select v-model="selectedEmployee">
-                    <option v-for="employ in employs" :key="employ.id" :value="employ.id">{{ employ.hoten }}</option>
-                </select>
+            <div v-for="order in filteredOrders" :key="order.customerInfo._id">
+                <div><b>Người giao:</b>{{ order.employeeInfo.name }} </div>
             </div>
-
             <div>
                 <label><b>Thông tin khách hàng:</b></label>
-                <ul v-for="customer in customers" :key="customer.id">
+                <ul v-for="order in filteredOrders" :key="order.customerInfo._id">
                     <li>
-                        {{ customer.gt }}: {{ customer.hoten }}
-
+                        <b>Tên:</b>{{ order.customerInfo.name }}
                     </li>
-                    <li> Số điện thoại: {{ customer.sdt }} </li>
-                    <li>Địa chỉ: {{ customer.diachi }}</li>
-                    <li> Ngày đặt hàng: {{ customer.ngayDatHang }}</li>
+                    <li> <b>Số điện thoại:</b> {{ order.customerInfo.phoneNumber }} </li>
+                    <li><b>Địa chỉ:</b>{{ order.customerInfo.address }}</li>
+                    <li> <b>Ngày đặt hàng:</b> {{ getCurrentDate() }}</li>
                     <li>
-                        <div>
-                            <label><b>Ngày giao hàng:</b></label>
-                            <input type="date" v-model="deliveryDate" />
-                        </div>
+                        <b>Ngày giao hàng:</b> {{ getExpectedDeliveryDate() }}
                     </li>
                 </ul>
             </div>
             <div>
                 <label><b>Trạng thái:</b></label>
-                <select v-model="status">
-                    <option value="Đang giao">Đang giao</option>
-                    <option value="Đã giao">Đã giao</option>
-                </select>
+                <span>{{ orderStatus }}</span>
             </div>
-
-            <h4>Sản phẩm đã đặt hàng:</h4>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tên sách</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Thành tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="product in cart" :key="product.id">
-                        <td>{{ product.sanpham }}</td>
-                        <td>{{ product.dongia }}.000 vnđ</td>
-                        <td>{{ product.giam }}%</td>
-                        <td>{{ product.soluong }}</td>
-                        <td>{{ product.tongtien }}.000 vnđ</td>
-                    </tr>
-                </tbody>
-            </table>
-            <button class="btn btn-success">Duyệt</button>
-        </div>
-
-        <div class="col-sm-6">
-            <div>
-                <label><b>Tổng doanh thu:</b></label>
-                <label>{{ totalAmount }}.000 vnđ</label>
-            </div>
-            <div>
-                <label><b>Người giao:</b></label>
-                <select v-model="selectedEmployee">
-                    <option v-for="employ in employs" :key="employ.id" :value="employ.id">{{ employ.hoten }}</option>
-                </select>
-            </div>
-
-            <div>
-                <label><b>Thông tin khách hàng:</b></label>
-                <ul v-for="customer in customers" :key="customer.id">
-                    <li>
-                        {{ customer.gt }}: {{ customer.hoten }}
-
-                    </li>
-                    <li> Số điện thoại: {{ customer.sdt }} </li>
-                    <li>Địa chỉ: {{ customer.diachi }}</li>
-                    <li> Ngày đặt hàng: {{ customer.ngayDatHang }}</li>
-                    <li>
-                        <div>
-                            <label><b>Ngày giao hàng:</b></label>
-                            <input type="date" v-model="deliveryDate" />
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-            <div>
-                <label><b>Trạng thái:</b></label>
-                <select v-model="status">
-                    <option value="Đang giao">Đang giao</option>
-                    <option value="Đã giao">Đã giao</option>
-                </select>
-            </div>
-
             <h4>Sản phẩm đã đặt hàng:</h4>
             <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Giá</th>
-                        <th scope="col">Giảm</th>
                         <th scope="col">Số lượng</th>
                         <th scope="col">Thành tiền</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="product in cart" :key="product.id">
-                        <td>{{ product.sanpham }}</td>
-                        <td>{{ product.dongia }}.000 vnđ</td>
-                        <td>{{ product.giam }}%</td>
-                        <td>{{ product.soluong }}</td>
-                        <td>{{ product.tongtien }}.000 vnđ</td>
+                    <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
+                        <td>{{ cart.productDetails.TenHH }}</td>
+                        <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
+                        <td>{{ cart.SoLuong }}</td>
+                        <td>{{ calculateTotal(cart) }}.000 VNĐ</td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-success">Duyệt</button>
-
+            <button class="btn btn-success" @click="approveOrder">Duyệt</button>
         </div>
     </div>
 </template>
   
 <script>
+import OrderService from '@/services/dathang.service';
+import CartService from '@/services/giohang.service';
 export default {
     data() {
         return {
-            selectedEmployee: null,
-            deliveryDate: '',
-            status: '',
-            cart: [
-                {
-                    id: 1,
-                    sanpham: 'Combo ngũ cốc 1',
-                    dongia: 100,
-                    soluong: 2,
-                    tongtien: 200,
-                },
-                {
-                    id: 2,
-                    sanpham: 'Combo ngũ cốc 2',
-                    dongia: 150,
-                    soluong: 3,
-                    tongtien: 450,
-                },
-                // Add more products as needed
-            ],
-            customers: [
-                {
-                    id: 1,
-                    gt: 'Anh',
-                    hoten: 'John Doe',
-                    sdt: '1234567890',
-                    diachi: '123 Main Street, City',
-                    pt: 'Chuyển khoản qua ngân hàng',
-                    ngayDatHang: '2023-11-03', // Thay đổi giá trị ngày đặt hàng
-                    ngayGiaoHang: '2023-11-05', // Thay đổi giá trị ngày giao hàng
-                    trangThai: 'Đã giao hàng', // Thay đổi trạng thái
-                },
-                // Add more customer data as needed
-            ],
-            employs: [
-                {
-                    id: 1,
-                    hoten: 'Jon with',
-                    // Thay đổi trạng thái
-                },
-                // Add more customer data as needed
-            ],
+            carts: [],
+            orders: [],
+            userId: '654cfdaa4d0821b70a923ff6',
+            orderStatus: 'Chưa duyệt',
+
         };
+    },
+    props: {
+        id: { type: String, required: true },
     },
     computed: {
         totalAmount() {
-            return this.cart.reduce((total, product) => total + product.tongtien, 0);
+            return this.filteredCarts.reduce((total, cart) => {
+                return total + cart.productDetails.Gia * cart.SoLuong;
+            }, 0);
         },
+        filteredCarts() {
+            return this.carts.filter(cart => cart.userDetails._id === this.userId);
+        },
+        filteredOrders() {
+            return this.orders.filter(order => order.customerInfo._id === this.userId);
+        },
+    },
+    methods: {
+        getCurrentDate() {
+            const currentDate = new Date();
+            const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+            return formattedDate;
+        },
+        getExpectedDeliveryDate() {
+            const currentDate = new Date();
+            const expectedDeliveryDate = new Date(currentDate);
+            expectedDeliveryDate.setDate(currentDate.getDate() + 3);
+
+            const formattedDate = `${expectedDeliveryDate.getFullYear()}-${(expectedDeliveryDate.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${expectedDeliveryDate.getDate().toString().padStart(2, '0')}`;
+
+            return formattedDate;
+        },
+        calculateTotal(cart) {
+            return cart.productDetails.Gia * cart.SoLuong;
+        },
+
+        async created() {
+            try {
+                // Retrieve userId from localStorage
+
+                this.carts = await CartService.getAll();
+                console.log("hi", this.carts);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async createdorder() {
+            try {
+
+
+                this.orders = await OrderService.getAll();
+                console.log("hi", this.orders);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        approveOrder() {
+            try {
+                // Update the orderStatus in data
+                this.orderStatus = 'Đã duyệt';
+
+                // Optionally, if you want to update the orderStatus in each order object,
+                // you can loop through filteredOrders and update the orderStatus property.
+                for (const order of this.filteredOrders) {
+                    order.orderStatus = 'Đã duyệt';
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+
+    },
+    created() {
+        this.created();
+        this.createdorder();
     },
 };
 </script>
-  
+<style>
+.banner {
+    background-color: antiquewhite;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    font-weight: 600;
+}
+</style>

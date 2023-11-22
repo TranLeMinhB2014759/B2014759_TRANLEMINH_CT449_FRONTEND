@@ -2,13 +2,11 @@
     <div class="container info-user" style="text-align:center">
         <div class="row">
             <div class="col-sm-9">
-                <div>
-                    <div style="background-color: #CCC;"><b>Tổng đơn hàng:</b></div>
-                    <div>{{ totalAmount }}.000 vnđ</div>
-                    <div>Ngày đặt hàng: {{ getCurrentDate() }}</div>
-                </div>
+
                 <table>
                     <thead>
+
+
                         <tr>
                             <th style="display: none;">id_sach</th>
                             <th scope="col">Sản phẩm</th>
@@ -20,26 +18,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="product" :key="product._id">
-                            <td style="display: none;">{{ product.id }}</td>
-                            <td><img :src="product.imgURL" alt="Product Image" class="img"></td>
-                            <td>{{ product.TenHH }}</td>
-                            <td>{{ 1 * product.Gia }}.000 VNĐ</td>
+                        <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
+
+                            <td style="display: none;"></td>
+                            <td><img :src="cart.productDetails.imgURL" alt="cart Image" class="img"></td>
+                            <td>{{ cart.productDetails.TenHH }}</td>
+                            <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
                             <td>
-                                <input type="number" min="1" v-model="product.soluong" class="short-input">
+                                {{ cart.SoLuong }}
                             </td>
-                            <td>{{ product.tongtien }}.000 vnđ</td>
-                            <td>
-                                <div class="product-quantity">
-                                    <button id="decrease-quantity" @click="decreaseQuantity">-</button>
-                                    <span id="quantity">{{ SoLuongHangHoa }}</span>
-                                    <button id="increase-quantity" @click="increaseQuantity">+</button>
-                                </div>
-                            </td>
-                            <td>.000 vnđ</td>
+
+
+                            <td>{{ calculateTotal(cart) }}.000 vnđ</td>
                             <td colspan="2">
-                                <form @submit.prevent="updateQuantity(product.id)">
-                                    <button @click="removeFromCart(product.id)">
+                                <form>
+                                    <button class="btn btn-danger" @click="deleteProduct(cart._id)">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-circle-x" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -59,7 +52,7 @@
                     <div style="background-color: #CCC;"><b>Tổng đơn hàng:</b></div>
                     <div>{{ totalAmount }}.000 vnđ</div>
                 </div>
-                <router-link :to="{ name: 'auth' }">
+                <router-link :to="{ name: 'products' }">
                     <button class="btn btn-success" @click="navigateToIndex">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24"
                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -71,11 +64,18 @@
                         </svg>
 
                         Tiếp tục mua hàng</button>
+
                 </router-link>
+
+
+
+
+
+
             </div>
             <div class="col-sm-3">
                 <h5 class="text-dark">THÔNG TIN KHÁCH HÀNG</h5>
-                <form class="text-dark" style="color:#e3e3e3" @submit.prevent="placeOrder">
+                <form class="text-dark" style="color:#e3e3e3" @submit.prevent="submitForm">
 
                     <label>Họ và tên:
                         <input type="text" required v-model="customer.hoten" placeholder="Nhập họ và tên">
@@ -83,6 +83,13 @@
                     <label>Số điện thoại:
                         <input type="text" required v-model="customer.sdt" placeholder="Nhập số điện thoại">
                     </label>
+                    <div>
+
+
+                        <div> <b> Ngày đặt hàng:</b> {{ getCurrentDate() }}</div>
+                        <div> <b> Ngày giao hàng:</b> {{ getExpectedDeliveryDate() }}(dự kiến)</div>
+                    </div>
+
                     <h5>CHỌN CÁCH THỨC NHẬN HÀNG</h5>
                     <label>
                         <input type="radio" required v-model="customer.postage" value="Yes" />Giao tận nơi
@@ -93,39 +100,24 @@
                     <div v-if="customer.postage === 'Yes'">
                         <div class="container">
                             <h5>Chọn địa chỉ nhận hàng:</h5>
-                            <select v-model="customer.province">
-                                <!-- Options for provinces -->
-                            </select>
-                            <select v-model="customer.district">
-                                <!-- Options for districts -->
-                            </select>
-                            <select v-model="customer.ward">
-                                <!-- Options for wards -->
-                            </select>
-                            <input type="hidden" name="diachi" :value="customer.result">
+                            <input type="text">
+
+
+
                         </div>
                     </div>
                     <div v-else>
                         <div href="/"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Khu 2, Đ. 3/2, P. Xuân Khánh,
                             Q. Ninh Kiều, TP. CT</div>
                     </div>
-                    <h5>PHƯƠNG THỨC THANH TOÁN</h5>
-                    <label>
-                        <input type="radio" v-model="customer.pt" value="Chuyển khoản qua ngân hàng" />Chuyển khoản qua ngân
-                        hàng
-                    </label>
-                    <label>
-                        <input type="radio" v-model="customer.pt" value="Thanh toán khi nhận hàng" />Thanh toán khi nhận
-                        hàng
-                    </label>
-                    <router-link :to="{ name: 'psuccess' }">
-                        <button>
-                            tiếp
-                        </button>
-                    </router-link>
-                    <button name="btn-pay" @click="placeOrder"
-                        style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">Đặt
-                        Hàng</button>
+
+
+                    <button
+                        style="display: block; overflow: hidden; color: #fff; text-align: center; height: 50px; margin: 10px auto; width: 100%; border-radius: 4px; background: #00ab9f; cursor: pointer;">
+
+                        Đặt hàng
+
+                    </button>
                 </form>
             </div>
         </div>
@@ -133,42 +125,47 @@
 </template>
   
 <script>
-import ProductService from '../services/hanghoa.service';
+
+import CartService from '../services/giohang.service';
 export default {
     data() {
         return {
-            product: [],
+            carts: [],
 
-            SoLuongHangHoa: 1,
+            userId: '',
+
+            deliveryDays: 3,
+
+
 
             customer: {
-                hoten: 'John Doe',
-                sdt: '123456789',
+                hoten: '',
+                sdt: '',
                 postage: 'Yes',
                 province: 'Hanoi',
                 district: 'Cau Giay',
                 ward: 'Dich Vong',
                 pt: 'Chuyển khoản qua ngân hàng',
             },
+
         };
-    },
-    computed: {
-        totalAmount() {
-            return this.cart.reduce((total, product) => total + product.tongtien, 0);
-        },
     },
     props: {
         id: { type: String, required: true },
     },
+    computed: {
+        filteredCarts() {
+            return this.carts.filter(cart => cart.userDetails._id === this.userId);
+        },
+        totalAmount() {
+            return this.filteredCarts.reduce((total, cart) => {
+                return total + cart.productDetails.Gia * cart.SoLuong;
+            }, 0);
+        },
+    },
     methods: {
-        decreaseQuantity() {
-            if (this.SoLuongHangHoa > 1) {
-                this.SoLuongHangHoa--;
-            }
-        },
-        increaseQuantity() {
-            this.SoLuongHangHoa++;
-        },
+
+
         getCurrentDate() {
             const currentDate = new Date();
             const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
@@ -176,27 +173,85 @@ export default {
                 .padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
             return formattedDate;
         },
-        updateQuantity(productId) {
-            // Implement the update quantity logic here
+        getExpectedDeliveryDate() {
+            const currentDate = new Date();
+            const deliveryDate = new Date(currentDate);
+            deliveryDate.setDate(currentDate.getDate() + this.deliveryDays);
+
+            const formattedDeliveryDate = `${deliveryDate.getFullYear()}-${(deliveryDate.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${deliveryDate.getDate().toString().padStart(2, '0')}`;
+
+            return formattedDeliveryDate;
         },
-        removeFromCart(productId) {
-            // Implement the remove from cart logic here
+        calculateTotal(cart) {
+            return cart.productDetails.Gia * cart.SoLuong;
         },
-        navigateToIndex() {
-            // Implement navigation logic to the index page
+
+
+
+        async created() {
+            try {
+                // Retrieve userId from localStorage
+                const userJs = window.localStorage.getItem('user');
+                const user = JSON.parse(userJs);
+
+                if (user && user._id) {
+                    this.userId = user._id;
+                }
+
+                this.carts = await CartService.getAll();
+                console.log("hi", this.carts);
+            } catch (error) {
+                console.error(error);
+            }
         },
-        placeOrder() {
-            // Implement the place order logic here
+        async deleteProduct(id) {
+            console.log('hi', id);
+            const confirmed = window.confirm("Bạn có chắc muốn xóa sản phẩm này?");
+            if (confirmed) {
+                try {
+                    await CartService.delete(id);
+                    // Update the cart after successful deletion
+
+                } catch (error) {
+                    console.error("Error deleting product:", error);
+                    // Handle the error, show a message to the user, or perform other actions
+                }
+            }
         },
+        submitForm() {
+            // Check if name and phone number are filled
+            if (!this.customer.hoten || !this.customer.sdt) {
+                alert('Please enter your name and phone number.');
+                return;
+            }
+
+            // The rest of your form submission logic
+            // ...
+
+            // Redirect to the success page and pass the customer information
+            this.$router.push({
+                name: 'psuccess',
+            });
+        },
+
+
+        decreaseQuantity() {
+            if (this.SoLuongHH > 1) {
+                this.SoLuongHH--;
+            }
+        },
+        increaseQuantity() {
+            this.SoLuongHH++;
+        },
+
+
     },
-    async created() {
-        const productId = this.$route.params.id;
-        try {
-            this.product = await ProductService.get(productId);
-        } catch (error) {
-            console.error(error);
-        }
+    created() {
+        this.created();
     },
+
 };
 </script>
 <style scoped>
@@ -224,6 +279,7 @@ img {
     align-items: center;
     margin-bottom: 10px;
 }
+
 .product-quantity button {
     background-color: #0077B6;
     /* Màu nền của nút */
@@ -237,6 +293,7 @@ img {
     font-size: 20px;
     cursor: pointer;
 }
+
 #quantity {
     margin: 0 10px;
     font-size: 18px;

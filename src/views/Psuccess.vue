@@ -1,43 +1,28 @@
 <template>
     <div class="contaiter">
         <div class="row">
-            <div class="col-sm-6">
-
-                <img style="
-         
-         float: left;
-         left: 360px;
-       
-         width: 250px;
-         top: 277px;
-       " src="https://theme.hstatic.net/1000363117/1000911694/14/lazyload.gif?v=271" width="250px" />
-            </div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <h3>Đặt hàng thành công</h3>
 
-                <div v-for="customer in customers" :key="customer.id">
-                    <label><b>{{ customer.gt }}:</b></label>
-                    <label>{{ customer.hoten }}</label><br>
-                    <label><b>Số điện thoại:</b> {{ customer.sdt }}</label><br>
-                    <label><b>Địa chỉ:</b> {{ customer.diachi }}</label><br>
-                    <label><b>Phương thức thanh toán:</b></label>
-                    <label>{{ customer.pt }}</label><br>
+                <div v-for="order in filteredOrders" :key="order.customerInfo._id">
+                    <label><b>MSKH:</b></label>
+                    <label>{{ order.MSKH }}</label> <br>
+                    <label><b>Tên:</b>{{ order.customerInfo.name }}</label><br>
+                    <label><b>Số điện thoại:</b> {{ order.customerInfo.phoneNumber }}</label><br>
+                    <label><b>Địa chỉ:</b> {{ order.customerInfo.address }}</label><br>
+                    <label><b>Phương thức thanh toán: </b>Tận nơi</label><br>
+                    <label><b>Địa chỉ:</b>{{ order.customerInfo.address }}</label><br>
                 </div>
-                <div>
-                    <label><b>Ngày đặt hàng:</b> {{ orderInfo.orderDate }}</label><br>
-                    <label><b>Ngày giao hàng:</b> {{ orderInfo.deliveryDate }}</label><br>
+                <div v-for="order in filteredOrders" :key="order.customerInfo._id">
+                    <label><b>Ngày đặt hàng:</b> {{ order.NgayDH }}</label><br>
+                    <label><b>Ngày giao hàng:</b> {{ order.NgayGH }}</label><br>
 
 
-                    <label><b>Người giao hàng:</b> {{ orderInfo.deliveryPerson }}</label><br>
-                    <select v-model="orderInfo.deliveryStatus" style="margin-right: 10px;">
-                        <option value="Đang giao hàng">Chưa nhận</option>
-                        <option value="Đã giao hàng">Đã nhận hàng</option>
-                    </select>
+                    <label><b>Người giao hàng:</b> {{ order.employeeInfo.name }}</label><br>
+
 
                     <!-- Button to confirm the status change -->
-                    <button class="btn btn-success" @click="confirmDeliveryStatus" style="margin-bottom: 10px;">
-                        Xác nhận
-                    </button>
+                    <div><b>Trạng thái: </b>{{ order.TrangthaiDH }}</div>
                 </div>
 
 
@@ -55,25 +40,26 @@
                             <th scope="col">Sản phẩm</th>
                             <th style="width: 300px" scope="col"></th>
                             <th scope="col">Giá</th>
-                            <th scope="col">Giảm giá</th> <!-- Thêm cột Giảm giá -->
+
                             <th style="width: 120px" scope="col">Số lượng</th>
                             <th scope="col">Thành tiền</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="product in cart" :key="product.id">
+                        <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
                             <td style="display: none;">
-                                <input name="id_sach" type="text" :value="product.id" />
+                                <input name="" type="text" />
                             </td>
-                            <td><img :src="product.hinh" alt="Product Image" class="img" /></td>
-                            <td>{{ product.sanpham }}</td>
-                            <td>{{ product.dongia }}.000 vnđ</td>
-                            <td>{{ product.giamGia }}%</td> <!-- Hiển thị giảm giá -->
+                            <td><img :src="cart.productDetails.imgURL" alt="cart Image" class="img"></td>
+                            <td>{{ cart.productDetails.TenHH }}</td>
+                            <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
+
                             <td>
-                                <p>{{ product.soluong }}</p>
+                                {{ cart.SoLuong }}
                             </td>
-                            <td>{{ (product.dongia * (1 - product.giamGia / 100) * product.soluong).toFixed(2) }}.000 vnđ
-                            </td> <!-- Tính toán tổng tiền -->
+                            <td>
+                                {{ calculateTotal(cart) }}.000 VNĐ
+                            </td>
                         </tr>
                     </tbody>
                     <tr>
@@ -83,7 +69,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="text-white">{{ totalAmount }}.000 vnđ</td>
+                        <td class="text-dark"><b>{{ totalAmount }}.000 vnđ</b></td>
                     </tr>
                 </table>
 
@@ -101,7 +87,7 @@
             border-radius: 18px;
             border: 0;
             cursor: pointer;
-          ">
+          " @click="clearCartAndNavigate">
                     Tiếp tục mua hàng
                 </button>
 
@@ -112,64 +98,102 @@
 </template>
   
 <script>
+import OrderService from '../services/dathang.service';
+import CartService from '../services/giohang.service';
 export default {
     data() {
         return {
-            customers: [],
-            cart: [
-                {
-                    id: 1,
-                    hinh: '	https://nongsansachstore.com/wp-content/uploads/2021/03/dau-do-nguyen-hat.jpg',
-                    sanpham: 'Combo ngũ cốc 1',
-                    dongia: 100,
-                    giamGia: 10, // Giảm giá 10%
-                    soluong: 2,
-                    tongtien: 0, // Sẽ tính toán lại sau
-                },
-                {
-                    id: 2,
-                    hinh: 'https://nongsansachstore.com/wp-content/uploads/2021/03/cong-dung-cua-hat-dau-den.png',
-                    sanpham: 'Combo ngũ cốc 2',
-                    dongia: 150,
-                    giamGia: 15, // Giảm giá 15%
-                    soluong: 3,
-                    tongtien: 0, // Sẽ tính toán lại sau
-                },
-                // Add more products as needed
-            ],
-            customers: [
-                {
-                    id: 1,
-                    gt: 'Anh',
-                    hoten: 'John Doe',
-                    sdt: '1234567890',
-                    diachi: '123 Main Street, City',
-                    pt: 'Chuyển khoản qua ngân hàng'
-                }
-            ],
-            orderInfo: {
-                orderDate: '2023-11-13', // Thay đổi giá trị ngày đặt hàng tùy ý
-                deliveryDate: '2023-11-20', // Thay đổi giá trị ngày giao hàng tùy ý
-                deliveryStatus: 'Đã giao hàng', // Thay đổi trạng thái giao hàng tùy ý
-                deliveryPerson: 'Người giao hàng A', // Thay đổi tên người giao hàng tùy ý
-            },
+            carts: [],
+            orders: [],
+            userId: '',
+
         };
     },
+    props: {
+        id: { type: String, required: true },
+    },
     computed: {
+        filteredCarts() {
+            return this.carts.filter(cart => cart.userDetails._id === this.userId);
+        },
+        filteredOrders() {
+            return this.orders.filter(order => order.customerInfo._id === this.userId);
+        },
         totalAmount() {
-            // Tính tổng tiền dựa trên giá, giảm giá và số lượng
-            return this.cart.reduce((total, product) => {
-                const priceAfterDiscount = product.dongia * (1 - product.giamGia / 100);
-                return total + priceAfterDiscount * product.soluong;
+            return this.filteredCarts.reduce((total, cart) => {
+                return total + cart.productDetails.Gia * cart.SoLuong;
             }, 0);
         },
+
+
     },
     methods: {
+        calculateTotal(cart) {
+            return cart.productDetails.Gia * cart.SoLuong;
+        },
 
         confirmDeliveryStatus() {
             // Add logic to handle the confirmation, if needed
             console.log('Delivery status confirmed:', this.orderInfo.deliveryStatus);
         },
+        async created() {
+            try {
+                // Retrieve userId from localStorage
+                const userJs = window.localStorage.getItem('user');
+                const user = JSON.parse(userJs);
+
+                if (user && user._id) {
+                    this.userId = user._id;
+                }
+
+                this.carts = await CartService.getAll();
+                console.log("hi", this.carts);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async createdorder() {
+            try {
+                // Retrieve userId from localStorage
+                const userJs = window.localStorage.getItem('user');
+                const user = JSON.parse(userJs);
+
+                if (user && user._id) {
+                    this.userId = user._id;
+                }
+
+                this.orders = await OrderService.getAll();
+                console.log("hi", this.orders);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+       async clearCartAndNavigate() {
+            // Clear the cart data
+            try {
+                // Retrieve userId from localStorage
+                const userJs = window.localStorage.getItem('user');
+                const user = JSON.parse(userJs);
+
+                if (user && user._id) {
+                    this.userId = user._id;
+                }
+
+                this.orders = await CartService.deleteAll();
+                this.$router.push({ name: 'auth' });
+                console.log("hi", this.orders);
+            } catch (error) {
+                console.error(error);
+            }
+
+            // Assuming you have a route named 'auth' defined in your router configuration
+            
+        },
+
+    },
+    created() {
+        this.created();
+        this.createdorder();
     },
 };
 </script>

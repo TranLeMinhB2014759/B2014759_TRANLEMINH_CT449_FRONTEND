@@ -1,8 +1,8 @@
 
 import createApiClient from "./api.service";
 
-class CartService {
-  constructor(baseUrl = "/api/carts") {
+class OrderService {
+  constructor(baseUrl = "/api/orders") {
     this.api = createApiClient(baseUrl);
   }
   async getAll() {
@@ -23,4 +23,4 @@ class CartService {
   }
 }
 
-export default new CartService();
+export default new OrderService();

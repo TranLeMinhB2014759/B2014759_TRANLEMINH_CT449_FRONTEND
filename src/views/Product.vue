@@ -1,8 +1,6 @@
 <template>
-  <div class="container product-title">
-    <h3>Thông tin sản phẩm</h3>
-  </div>
   <div class="container">
+    <h3 class="title-comm"><span class="title-holder">Thông tin sản phẩm</span></h3>
     <div class="row">
       <div class="col-sm-6 products-img" v-if="product" :key="product._id">
         <img :src="product.imgURL" alt="">
@@ -13,9 +11,9 @@
             <h1 style="color: #0077B6">{{ product.TenHH }}</h1>
             <div class="product-price">
 
-              <span class="price-new">{{ 1 * product.Gia }}</span>
-              <span class="price"> - </span>
-              <span class="price-old">{{ 1.5 * product.Gia }} VNĐ / 1 kg</span>
+              <span class="price-new">{{ 1 * product.Gia }} VNĐ / 1 kg</span>
+              <!-- <span class="price"> - </span> -->
+              <!-- <span class="price-old">{{ 1.5 * product.Gia }} VNĐ / 1 kg</span> -->
             </div>
             <div class="product-rating">
               <!-- 45 ngôi sao màu vàng -->
@@ -24,26 +22,26 @@
           </div>
           <div class="product-info">
             <p><b>Tên Sản Phẩm:</b> {{ product.TenHH }}</p>
-            <p><b>Xuất Xứ: Hưng Yên</b></p>
-            <p><b>Hạn Sử Dụng: 12 tháng</b></p>
-            <p><b>Mô tả sản phẩm: {{ product.MoTaHH }}</b></p>
+            <p><b>Hạn Sử Dụng:</b> 12 tháng</p>
+            <p><b>Mô tả sản phẩm:</b> {{ product.MoTaHH }}</p>
           </div>
 
         </div>
-        <div class="product-details" @click="OpenModalRegister"  v-if="!isLoggedIn">
-            <button id="add-to-cart" class="btn btn-success text-white" >Thêm vào giỏ hàng</button>
+        <div class="product-details" @click="OpenModalRegister" v-if="!isLoggedIn">
+          <button id="add-to-cart" class="btn btn-success text-white">Thêm vào giỏ hàng</button>
           <homeModal :isShowModalRegister="isShowModalRegister" :closeModalRegister="closeModalRegister" />
         </div>
 
-        <div class="product-details" v-else v-if="product" :key="product._id" > 
-          <!-- <div class="product-quantity">
+        <div class="product-details" v-else v-if="product" :key="product._id">
+          <div class="input-kg">Chọn số kg</div>
+          <div class="product-quantity">
             <button id="decrease-quantity" @click="decreaseQuantity">-</button>
-            <span id="quantity">{{ SoLuongHangHoa }}</span>
+            <span id="quantity">{{ SoLuongHH }}</span>
             <button id="increase-quantity" @click="increaseQuantity">+</button>
-          </div> -->
-          <router-link :to="{ name: 'events' }">
-            <button id="add-to-cart" class="btn btn-success text-white">Thêm vào giỏ hàng</button>
-          </router-link>
+          </div>
+          <button id="add-to-cart" class="btn btn-success text-white" @click="addToCart">
+            Thêm vào giỏ hàng
+          </button>
         </div>
       </div>
     </div>
@@ -52,69 +50,97 @@
   
   
 <script>
+import CartService from '../services/giohang.service';
 import ProductService from '../services/hanghoa.service';
 
 export default {
   data() {
     return {
-      // SoLuongHangHoa: 1,
       product: [],
       isLoggedIn: false,
+      SoLuongHH: 1,
     };
   },
-  mounted() {
-        // Khai báo biến intervalId bằng let hoặc const
-        let intervalId;
-
-        // Gọi đoạn code mỗi 5 giây và lưu giá trị được trả về bởi setInterval
-        intervalId = setInterval(() => {
-            const userJs = window.localStorage.getItem('user');
-            const user = JSON.parse(userJs);
-
-
-            if (user) {
-                // console.log('user', user);
-                this.isLoggedIn = true;
-            }
-        }, 100); // Gọi mỗi 0,1 giây 
-
-        // Để dừng việc gọi đoạn code sau một thời gian hoặc khi điều kiện nào đó được thỏa mãn, bạn có thể sử dụng clearInterval(intervalId)
-
-        // Ví dụ: Dừng việc gọi đoạn code sau 300 giây
-        setTimeout(() => {
-            clearInterval(intervalId);
-        }, 3000000);
-    },
   props: {
     id: { type: String, required: true },
+    cart: { type: Object, required: true },
+  },
+  mounted() {
+    let intervalId;
+
+    intervalId = setInterval(() => {
+      const userJs = window.localStorage.getItem('user');
+      const user = JSON.parse(userJs);
+      if (user) {
+        this.isLoggedIn = true;
+      }
+    }, 100);
+    setTimeout(() => {
+      clearInterval(intervalId);
+    }, 3000000);
   },
   methods: {
+    async addToCart() {
+      try {
+        // Get user ID from localStorage
+        const userJs = window.localStorage.getItem('user');
+        const user = JSON.parse(userJs);
+
+        const productData = await ProductService.get(this.$route.params.id);
+
+        // Create data object for the cart
+        const data = {
+          IdUser: user._id,
+          IdHangHoa: productData._id,
+          SoLuong: this.SoLuongHH,
+        };
+        console.log('hi', data);
+
+        // Call the CartService to create the cart
+        await CartService.create(data);
+
+        // Redirect to the correct route
+        this.$router.push({ name: 'events' });
+        // Replace 'your-route-name' with the actual name of the route you want to navigate to.
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    decreaseQuantity() {
+      if (this.SoLuongHH > 1) {
+        this.SoLuongHH--;
+      }
+    },
+    increaseQuantity() {
+      this.SoLuongHH++;
+    },
     logout() {
-            window.localStorage.removeItem('user');
-            this.isLoggedIn = false;
+      window.localStorage.removeItem('user');
+      this.isLoggedIn = false;
 
 
-            this.$router.push({ name: "trangchu" });
-        },
-        loginUser() {
+      this.$router.push({ name: "trangchu" });
+    },
+    loginUser() {
 
-            this.$router.push({ name: "login" });
-        },
-        signupUser() {
+      this.$router.push({ name: "login" });
+    },
+    signupUser() {
 
-            this.$router.push({ name: "user.register" });
-        },
-        openModal() {
-            this.AModalVisible = false;
-        },
-    // decreaseQuantity() {
-    //   if (this.SoLuongHangHoa > 1) {
-    //     this.SoLuongHangHoa--;
-    //   }
-    // },
-    // increaseQuantity() {
-    //   this.SoLuongHangHoa++;
-    // },
+      this.$router.push({ name: "user.register" });
+    },
+    openModal() {
+      this.AModalVisible = false;
+    },
+    
+    decreaseQuantity() {
+      if (this.SoLuongHH > 1) {
+        this.SoLuongHH--;
+      }
+    },
+    increaseQuantity() {
+      this.SoLuongHH++;
+    },
   },
   async created() {
     const productId = this.$route.params.id;
