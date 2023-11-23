@@ -2,14 +2,13 @@
     <div class="banner text-center">QUẢN LÝ ĐƠN HÀNG</div>
     <div class="container row">
         <div class="col-sm-12" style="text-align: center;">
-            <h3>Đơn đặt hàng</h3>
             <label><b>Tổng số đơn hàng:</b></label>
             <label>1</label>
 
         </div>
         <div class="col-sm-12">
-            <div>
-                <label><b>Tổng doanh thu:</b></label>
+            <!-- <div>
+                <label><b>Tổng doanh thu:</b> 90000 VND</label>
                 <label>{{ totalAmount }}.000 vnđ</label>
             </div>
             <div v-for="order in filteredOrders" :key="order.customerInfo._id">
@@ -28,28 +27,36 @@
                         <b>Ngày giao hàng:</b> {{ getExpectedDeliveryDate() }}
                     </li>
                 </ul>
-            </div>
-            <div>
-                <label><b>Trạng thái:</b></label>
-                <span>{{ orderStatus }}</span>
-            </div>
+            </div> -->
             <h4>Sản phẩm đã đặt hàng:</h4>
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Tên khách hàng</th>
                         <th scope="col">Tên sản phẩm</th>
-                        <th scope="col">Giá</th>
                         <th scope="col">Số lượng</th>
+                        <th scope="col">Giá</th>
                         <th scope="col">Thành tiền</th>
+                        <th scope="col">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
+                    <tr>
+                        <td>Trần Lê Minh</td>
+                        <td>Cam Sành</td>
+                        <td>3</td>
+                        <td>30000 VND</td>
+                        <td>90000 VND</td>
+                        <td><span>{{ orderStatus }}</span></td>
+
+
+                    </tr>
+                    <!-- <tr v-for="cart in filteredCarts" :key="cart.userDetails._id">
                         <td>{{ cart.productDetails.TenHH }}</td>
                         <td>{{ 1 * cart.productDetails.Gia }}.000 VNĐ</td>
                         <td>{{ cart.SoLuong }}</td>
                         <td>{{ calculateTotal(cart) }}.000 VNĐ</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
             <button class="btn btn-success" @click="approveOrder">Duyệt</button>
