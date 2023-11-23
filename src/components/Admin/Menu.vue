@@ -49,9 +49,12 @@
 export default {
     methods: {
         logout() {
-            window.localStorage.removeItem('user');
-            this.isLoggedIn = false;
-            this.$router.push({ name: "trangchu" });
+            const confirmed = window.confirm("Bạn có chắc muốn đăng xuất khỏi hệ thống?");
+            if (confirmed) {
+                window.localStorage.removeItem('user');
+                this.isLoggedIn = false;
+                this.$router.push({ name: "login" });
+            }
         },
     }
 
@@ -60,8 +63,8 @@ export default {
 
 <style scoped>
 .menu{
-    border-right: 1px solid;
-    height: 88vh ;
+    height: 90vh ;
+    background-color: #f2f2f2;
 }
 .table tbody tr:hover {
     background-color: #f2f2f2;

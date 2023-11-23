@@ -14,6 +14,18 @@
       </div>
 
       <div class="form-group">
+        <label for="phoneNumber">Số điện thoại:</label>
+        <Field name="phoneNumber" type="text" class="form-control" v-model="userLocal.phoneNumber" required />
+        <ErrorMessage name="phoneNumber" class="error-feedback" style="color: rgb(238, 15, 15);" />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Địa chỉ:</label>
+        <Field name="address" type="text" class="form-control" v-model="userLocal.address" required />
+        <ErrorMessage name="address" class="error-feedback" style="color: rgb(238, 15, 15);" />
+      </div>
+
+      <div class="form-group">
         <label for="password">Mật khẩu:</label>
         <Field name="password" type="text" class="form-control" v-model="userLocal.password" required />
         <ErrorMessage name="password" class="error-feedback" style="color: rgb(238, 15, 15);" />
@@ -72,16 +84,20 @@ export default {
         .required("Email phải có giá trị.")
         .email("E-mail không đúng.")
         .max(50, "E-mail tối đa 50 ký tự."),
+      address: yup
+        .string()
+        .required("Địa chỉ không được để trống."),
+      phoneNumber: yup
+        .string()
+        .required("Số điện thoại không được để trống."),
       password: yup
         .string()
         .required("Mật khẩu phải có giá trị.")
         .min(5, "Mật khẩu phải ít nhất 5 ký tự.")
         .max(10, "Mật khẩu có nhiều nhất 10 ký tự."),
-
       role: yup
         .string()
         .required("Số lượng sản phẩm không được để trống."),
-
       imgURL: yup.string().required("Vui lòng chọn một ảnh."),
     });
     return {

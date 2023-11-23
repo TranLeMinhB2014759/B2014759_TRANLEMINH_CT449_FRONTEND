@@ -21,15 +21,13 @@
 
                 <!-- Right elements -->
                 <div class="d-flex align-items-center">
-
-                    <div class="dropdown">
                         <a class=" d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar"
                             role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             <img src="@/assets/img/user.jpg" class="rounded-circle" height="55" width="60"
                                 alt="Black and White Portrait of a Man" loading="lazy" />
                         </a>
-
-                    </div>
+                        
+                        <div class="ad-name">ADMIN</div>
                 </div>
                 <!-- Right elements -->
             </div>
@@ -55,5 +53,13 @@ export default {
     height: 60px;
 
     border-radius: 50%;
+}
+
+.ad-name{
+    color: white;
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
 }
 </style>

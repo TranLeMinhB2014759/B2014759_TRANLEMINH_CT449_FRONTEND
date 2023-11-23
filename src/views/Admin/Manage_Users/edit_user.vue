@@ -36,6 +36,7 @@ export default {
                     await UserService.update(this.user ? this.user._id : null, data);
                     this.message = "Cập nhật sản phẩm thành công";
                     alert(this.message);
+                    this.$router.push({ name: 'admin-user' });
                 } catch (error) {
                     console.error(error);
                 }

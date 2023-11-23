@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="text-center title">
-                    <h3>Đơn hàng của bạn</h3>
+                    <h3>Đặt hàng thành công</h3>
                 </div>
                 
                 <div v-for="order in filteredOrders" :key="order.customerInfo._id">

@@ -35,7 +35,29 @@
 					<div class="error-message">
 						<ErrorMessage name="email" class="error-feedback" style="color: rgb(238, 15, 15);" />
 					</div>
-					
+
+					<div class="wrap-input">
+						<Field type="phoneNumber" class="input" name="phoneNumber" placeholder="Enter your phone number" v-model="userLocal.phoneNumber" />
+						<span class="focus-input"></span>
+						<span class="symbol-input">
+							<i class="fa-solid fa-phone"></i>
+						</span>
+					</div>
+					<div class="error-message">
+						<ErrorMessage name="phoneNumber" class="error-feedback" style="color: rgb(238, 15, 15);" />
+					</div>
+
+					<div class="wrap-input">
+						<Field type="address" class="input" name="address" placeholder="Enter your address" v-model="userLocal.address" />
+						<span class="focus-input"></span>
+						<span class="symbol-input">
+							<i class="fa-solid fa-location-dot"></i>
+						</span>
+					</div>
+					<div class="error-message">
+						<ErrorMessage name="address" class="error-feedback" style="color: rgb(238, 15, 15);" />
+					</div>
+
 					<div class="wrap-input">
 						<Field :type="showPassword ? 'text' : 'password'" class="input" name="password" placeholder="Enter your password" v-model="userLocal.password" />
 						<span class="focus-input"></span>
@@ -103,6 +125,13 @@ export default {
                 .required("Email phải có giá trị.")
                 .email("E-mail không đúng.")
                 .max(50, "E-mail tối đa 50 ký tự."),
+			address: yup
+                .string()
+                .required("Địa chỉ không được để trống."),
+
+			phoneNumber: yup
+                .string()
+                .required("Số điện thoại không được để trống."),
 
             password: yup
                 .string()
@@ -124,6 +153,8 @@ export default {
             userLocal: {
                 name: "",
                 email: "",
+				address: "",
+				phoneNumber: "",
                 password: "",
                 respassword: "",
 				imgURL: "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg",

@@ -114,11 +114,14 @@ export default {
 
     methods: {
         logout() {
+            const confirmed = window.confirm("Bạn có chắc muốn đăng xuất tài khoản?");
+            if (confirmed) {
             window.localStorage.removeItem('user');
             this.isLoggedIn = false;
 
 
             this.$router.push({ name: "trangchu" });
+            }
         },
         loginUser() {
 

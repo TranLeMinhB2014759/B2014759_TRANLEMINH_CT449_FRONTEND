@@ -36,6 +36,7 @@ export default {
                     await ProductService.update(this.product ? this.product._id : null, data);
                     this.message = "Cập nhật sản phẩm thành công";
                     alert(this.message);
+                    this.$router.push({ name: 'admin-product' });
                 } catch (error) {
                     console.error(error);
                 }

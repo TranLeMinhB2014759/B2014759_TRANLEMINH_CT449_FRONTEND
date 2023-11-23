@@ -21,6 +21,14 @@ export default {
             {{ user.email }}
         </div>
         <div class="p-1">
+            <strong>Số điện thoại:</strong>
+            {{ user.phoneNumber }}
+        </div>
+        <div class="p-1">
+            <strong>Địa chỉ:</strong>
+            {{ user.address }}
+        </div>
+        <div class="p-1">
             <strong>Mật khẩu:</strong>
             {{ user.password }}
         </div>
