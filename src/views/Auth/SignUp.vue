@@ -26,7 +26,6 @@ export default {
   },
   methods: {
     async createUser(data) {
-      // Hiển thị cửa sổ xác nhận
       const confirmed = window.confirm("Bạn có muốn tạo tài khoản  mới?");
       if (confirmed) {
         try {

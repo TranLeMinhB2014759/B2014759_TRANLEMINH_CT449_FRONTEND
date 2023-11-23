@@ -12,8 +12,6 @@
             <div class="product-price">
 
               <span class="price-new">{{ 1 * product.Gia }} VNĐ / 1 kg</span>
-              <!-- <span class="price"> - </span> -->
-              <!-- <span class="price-old">{{ 1.5 * product.Gia }} VNĐ / 1 kg</span> -->
             </div>
             <div class="product-rating">
               <!-- 45 ngôi sao màu vàng -->
@@ -82,13 +80,13 @@ export default {
   methods: {
     async addToCart() {
       try {
-        // Get user ID from localStorage
+        // Lấy ID người dùng từ localStorage
         const userJs = window.localStorage.getItem('user');
         const user = JSON.parse(userJs);
 
         const productData = await ProductService.get(this.$route.params.id);
 
-        // Create data object for the cart
+        // Tạo đối tượng dữ liệu cho giỏ hàng
         const data = {
           IdUser: user._id,
           IdHangHoa: productData._id,
@@ -96,12 +94,11 @@ export default {
         };
         console.log('hi', data);
 
-        // Call the CartService to create the cart
+        // Gọi CartService để tạo giỏ hàng
         await CartService.create(data);
 
-        // Redirect to the correct route
+        // Chuyển hướng đến đúng tuyến đường
         this.$router.push({ name: 'cart' });
-        // Replace 'your-route-name' with the actual name of the route you want to navigate to.
       } catch (error) {
         console.error(error);
       }

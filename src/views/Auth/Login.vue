@@ -19,17 +19,15 @@ export default {
         async loginUser(data) {
             try {
                 const response = await UserService.login(data);
-                // console.log("hello", response);
                 localStorage.setItem('user', JSON.stringify(response.user));
 
                 if (response && response.message === 'Đăng nhập thành công') {
-                    // Check the user's role
                     if (response.user.role === 'admin') {
                         this.message = "Đăng nhập thành công vào trang admin";
-                        this.$router.push({ name: 'welcome' }); // Assuming 'admin' is the name of your admin route.
+                        this.$router.push({ name: 'welcome' });
                     } else {
                         this.message = "Đăng nhập thành công";
-                        this.$router.push({ name: 'trangchu' }); // Assuming 'auth' is the name of your user route.
+                        this.$router.push({ name: 'trangchu' });
                     }
                 }
             } catch (error) {

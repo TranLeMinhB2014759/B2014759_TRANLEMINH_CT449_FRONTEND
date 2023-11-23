@@ -54,7 +54,7 @@ export default {
     },
   },
   created() {
-    // Automatically call refreshList() when the component is created
+    //Tự động load khi components
     this.refreshList();
   },
 };
